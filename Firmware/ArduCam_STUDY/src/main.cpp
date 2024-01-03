@@ -1,3 +1,4 @@
+#include <Arduino.h>
 // Copyright 2021 Arducam Technology co., Ltd. All Rights Reserved.
 // License: MIT License (https://en.wikipedia.org/wiki/MIT_License)
 // Web: http://www.ArduCAM.com
@@ -9,6 +10,7 @@
 #include "ArducamLink.h"
 #include "Arducam_Mega.h"
 #include "SPI.h"
+
 const int MEGA_CS = 7;
 Arducam_Mega myCAM(MEGA_CS);
 ArducamLink myUart;
@@ -67,31 +69,31 @@ void stop_preivew()
 
 void setup()
 {
-    SPI.begin();
-    myUart.arducamUartBegin(115200);
-    myUart.send_data_pack(7, "Hello Arduino UNO!");
-    myCAM.begin();
-    myUart.send_data_pack(8, "Mega start!");
-    myCAM.registerCallBack(readBuffer, 200, stop_preivew);
+  SPI.begin();
+  myUart.arducamUartBegin(115200);
+  myUart.send_data_pack(7, "Hello Arduino UNO!");
+  myCAM.begin();
+  myUart.send_data_pack(8, "Mega start!");
+  myCAM.registerCallBack(readBuffer, 200, stop_preivew);
 }
 
 void loop()
 {
-    if (myUart.arducamUartAvailable()) {
-        temp = myUart.arducamUartRead();
-        delay(5);
-        if (temp == 0x55) {
-            while (myUart.arducamUartAvailable()) {
-                commandBuff[commandLength] = myUart.arducamUartRead();
-                if (commandBuff[commandLength] == 0xAA) {
-                    break;
-                }
-                commandLength++;
-            }
-            myUart.arducamFlush();
-            myUart.uartCommandProcessing(&myCAM, commandBuff);
-            commandLength = 0;
+  if (myUart.arducamUartAvailable()) {
+    temp = myUart.arducamUartRead();
+    delay(5);
+    if (temp == 0x55) {
+      while (myUart.arducamUartAvailable()) {
+        commandBuff[commandLength] = myUart.arducamUartRead();
+        if (commandBuff[commandLength] == 0xAA) {
+          break;
         }
+        commandLength++;
+      }
+      myUart.arducamFlush();
+      myUart.uartCommandProcessing(&myCAM, commandBuff);
+      commandLength = 0;
     }
-    myCAM.captureThread();
+  }
+  myCAM.captureThread();
 }

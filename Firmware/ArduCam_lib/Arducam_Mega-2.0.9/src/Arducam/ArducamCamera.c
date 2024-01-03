@@ -542,7 +542,6 @@ uint8_t cameraReadByte(ArducamCamera* camera)
 }
 
 uint32_t cameraReadBuff(ArducamCamera* camera, uint8_t* buff, uint32_t length)
-
 {
     if (imageAvailable(camera) == 0 || (length == 0)) {
         return 0;
@@ -554,11 +553,14 @@ uint32_t cameraReadBuff(ArducamCamera* camera, uint8_t* buff, uint32_t length)
 
     arducamSpiCsPinLow(camera->csPin);
     setFifoBurst(camera);
+
+    // When burst reading start, the first byte is the dummy data
     if (camera->burstFirstFlag == 0) {
         camera->burstFirstFlag = 1;
         arducamSpiTransfer(0x00);
     }
 
+    // The subsequent data is the valid data to be read
 #ifndef arducamSpiReadBlock
     for (uint32_t count = 0; count < length; count++) {
         buff[count] = arducamSpiTransfer(0x00);
