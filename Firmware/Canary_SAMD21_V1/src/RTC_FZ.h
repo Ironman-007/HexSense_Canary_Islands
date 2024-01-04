@@ -88,6 +88,7 @@ public:
   };
 
   RTCZero();
+
   void begin(bool resetTime = false, uint8_t rtc_mode = 2, bool clearOnMatch = false, Prescaler prescale = None);
 
   void enableAlarm(Alarm_Match match);

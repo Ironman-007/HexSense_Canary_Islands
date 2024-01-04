@@ -19,7 +19,7 @@
 
 #include <time.h>
 
-#include "RTCZero.h"
+#include "RTC_FZ.h"
 
 #define EPOCH_TIME_OFF      946684800  // This is 1st January 2000, 00:00:00 in epoch time
 #define EPOCH_TIME_YEAR_OFF 100        // years since 1900
@@ -43,8 +43,10 @@ RTCZero::RTCZero()
 void RTCZero::begin(bool resetTime, uint8_t mode, bool clearOnMatch, Prescaler prescale)
 {
   uint16_t tmp_reg = 0;
+
   rtc_mode = mode;
   bool validTime = false;
+
   RTC_MODE0_COUNT_Type mode0_oldCount;
   RTC_MODE1_COUNT_Type mode1_oldCount;
   RTC_MODE2_CLOCK_Type mode2_oldTime;
@@ -52,8 +54,7 @@ void RTCZero::begin(bool resetTime, uint8_t mode, bool clearOnMatch, Prescaler p
   PM->APBAMASK.reg |= PM_APBAMASK_RTC; // turn on digital interface clock
   config32kOSC();
 
-
-  if (rtc_mode==0) {
+  if (rtc_mode == 0) {
     // If the RTC is in 32-bit counter mode and the reset was
     // not due to POR or BOD, preserve the clock time
     // POR causes a reset anyway, BOD behaviour is?

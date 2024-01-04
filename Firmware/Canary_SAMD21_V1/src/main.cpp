@@ -8,7 +8,15 @@
 
 RTCZero rtc;
 
-void alarmMatch(void);
+volatile bool alarmMatched = false;
+
+void alarmMatch(void) {
+  alarmMatched = true;
+}
+
+void blink_led(void) {
+  digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+}
 
 void setup() {
   // set up led pin as an output:
@@ -18,16 +26,14 @@ void setup() {
   // https://blog.thea.codes/understanding-the-sam-d21-clocks/
 
   rtc.begin(true, 1); // initialize RTC: reset starting value, Mode 1 (16-bit counter)
-  rtc.setPeriod(2); // set counter period
+  rtc.setPeriod(0); // set counter period
   rtc.enableOverflow(); // enable interrupt on overflow
   rtc.attachInterrupt(alarmMatch); // attach interrupt
 }
 
 void loop() {
-  // do nothing!
-  delay(1000);
-}
-
-void alarmMatch() {
-  digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+  if (alarmMatched) {
+    alarmMatched = false;
+    blink_led();
+  }
 }
