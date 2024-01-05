@@ -22,6 +22,15 @@ void blink_led(void) {
   digitalWrite(LED_BUILTIN, LOW);
 }
 
+void set_idle_level(int level) {
+  SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk; // Clear SLEEPDEEP bit, we use the idle state.
+
+  if (level == 0) {PM->SLEEP.reg = PM_SLEEP_IDLE_CPU;}
+  else if (level == 1) {PM->SLEEP.reg = PM_SLEEP_IDLE_AHB;}
+  else if (level == 2) {PM->SLEEP.reg = PM_SLEEP_IDLE_APB;}
+  else {PM->SLEEP.reg = PM_SLEEP_IDLE_CPU;}
+}
+
 void setup() {
   // set up led pin as an output:
   pinMode(LED_BUILTIN, OUTPUT);
@@ -33,6 +42,8 @@ void setup() {
   rtc.setPeriod(PERIOD-1);                // set counter period
   rtc.enableOverflow();            // enable interrupt on overflow
   rtc.attachInterrupt(alarmMatch); // attach interrupt
+
+  set_idle_level(0);
 }
 
 void loop() {
