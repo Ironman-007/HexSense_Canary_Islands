@@ -50,8 +50,14 @@ void RTCZero::begin(bool resetTime, uint8_t mode, bool clearOnMatch, Prescaler p
   RTC_MODE0_COUNT_Type mode0_oldCount;
   RTC_MODE1_COUNT_Type mode1_oldCount;
   RTC_MODE2_CLOCK_Type mode2_oldTime;
-  
-  PM->APBAMASK.reg |= PM_APBAMASK_RTC; // turn on digital interface clock
+
+  // Turn on the connection between the clock (CLK_RTC_APB) and the RTC
+  // RTC is clocked by APBA. APBB and apbc control the other peripherals.
+  PM->APBAMASK.reg |= PM_APBAMASK_RTC; // Connect RTC wiht APBA bus clock
+
+  // Configure clock source
+  // Before a Generator is enabled, the corresponding clock source should be enabled.
+  // Check datasheet page 113
   config32kOSC();
 
   if (rtc_mode == 0) {
@@ -64,7 +70,7 @@ void RTCZero::begin(bool resetTime, uint8_t mode, bool clearOnMatch, Prescaler p
         mode0_oldCount.reg = RTC->MODE0.COUNT.reg;
       }
     }
-  } 
+  }
   else if (rtc_mode==1) {
     // If the RTC is in 16-bit counter mode and the reset was
     // not due to POR or BOD, preserve the clock time
@@ -75,7 +81,7 @@ void RTCZero::begin(bool resetTime, uint8_t mode, bool clearOnMatch, Prescaler p
         mode1_oldCount.reg = RTC->MODE1.COUNT.reg;
       }
     }
-  } 
+  }
   else {
     // If the RTC is in clock mode and the reset was
     // not due to POR or BOD, preserve the clock time
@@ -88,18 +94,30 @@ void RTCZero::begin(bool resetTime, uint8_t mode, bool clearOnMatch, Prescaler p
     }
   }
 
+  /*
+  1. choose a clock generator;
+  2. set up the source, prescaler and division factor, etc
+  3. enable the clock generator
+  4. connect the clock generator to the RTC
+  */
+
   // Setup clock GCLK2 with OSC32K divided by 32
+  // Use GCLK2 for RTC
+  // Check datasheet page 113
   configureClock();
 
+  // some registers can only be accessed when RTC is disabled
+  // The RTC must be disabled before resetting it.
   RTCdisable();
 
+  // Reset RTC
   RTCreset();
 
   if (rtc_mode==0) {
     if (prescale==None) prescale = MODE0_DIV1024;   // set prescaler default to 1024
     tmp_reg |= RTC_MODE0_CTRL_MODE_COUNT32;         // set 32-bit counter operating mode
     tmp_reg |= prescale;                            // set prescaler
-    
+
     if (clearOnMatch==true) tmp_reg |= RTC_MODE0_CTRL_MATCHCLR;     // enable clear on match
     else tmp_reg &= ~RTC_MODE0_CTRL_MATCHCLR;                       // disable clear on match
 
@@ -108,7 +126,7 @@ void RTCZero::begin(bool resetTime, uint8_t mode, bool clearOnMatch, Prescaler p
     RTC->MODE0.CTRL.reg = tmp_reg;
   }
   else if (rtc_mode==1) {
-    if (prescale==None) prescale = MODE1_DIV1024;   // set prescaler default to 1024
+    if (prescale==None) prescale = MODE1_DIV1024;   // set prescaler default to 1024 (32768/32(GCLK2 prescaler)/1024 = 1Hz)
     tmp_reg |= RTC_MODE1_CTRL_MODE_COUNT16;         // set 16-bit counter operating mode
     tmp_reg |= prescale;                            // set prescaler
 
@@ -648,17 +666,21 @@ void RTCZero::setY2kEpoch(uint32_t ts)
 
 /* Attach peripheral clock to 32k oscillator */
 void RTCZero::configureClock() {
-  GCLK->GENDIV.reg = GCLK_GENDIV_ID(2)|GCLK_GENDIV_DIV(4);
-  while (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY)
+  // select the clock generator (prescaler)
+  GCLK->GENDIV.reg = GCLK_GENDIV_ID(2)|GCLK_GENDIV_DIV(4); // select GLCK2, divide by 2^(4+1)=32, defined by the GCLK_GENCTRL_DIVSEL.
+  while (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY) // wait for sync done
     ;
 #ifdef CRYSTALLESS
   GCLK->GENCTRL.reg = (GCLK_GENCTRL_GENEN | GCLK_GENCTRL_SRC_OSCULP32K | GCLK_GENCTRL_ID(2) | GCLK_GENCTRL_DIVSEL );
 #else
+  // configure the source of the clock generator, enable the clock generator
   GCLK->GENCTRL.reg = (GCLK_GENCTRL_GENEN | GCLK_GENCTRL_SRC_XOSC32K | GCLK_GENCTRL_ID(2) | GCLK_GENCTRL_DIVSEL );
 #endif
   while (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY)
     ;
-  GCLK->CLKCTRL.reg = (uint32_t)((GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN_GCLK2 | (RTC_GCLK_ID << GCLK_CLKCTRL_ID_Pos)));
+  // configure the clock MUX
+  // enable the generic clock (not he generator), using the clock generator 2 as source, and connect to RTC (MUX)
+  GCLK->CLKCTRL.reg = (uint32_t)((GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN_GCLK2 | (RTC_GCLK_ID << GCLK_CLKCTRL_ID_Pos))); // connect RTC to this GCLK2
   while (GCLK->STATUS.bit.SYNCBUSY)
     ;
 }

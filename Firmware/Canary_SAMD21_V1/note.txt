@@ -1,0 +1,28 @@
+This is the default clock configuration in Arduino for SAMD21.
+
+//********************** SAMD21 *********************//
+
+	/**
+ * \brief SystemInit() configures the needed clocks and according Flash Read Wait States.
+ * At reset:
+ * - OSC8M clock source is enabled with a divider by 8 (1MHz).
+ * - Generic Clock Generator 0 (GCLKMAIN) is using OSC8M as source.
+ * We need to:
+ * (1) Enable XOSC32K clock (External on-board 32.768Hz oscillator), will be used as DFLL48M reference.
+ * (2) Put XOSC32K as source of Generic Clock Generator 1
+ * (3) Put Generic Clock Generator 1 as source for Generic Clock Multiplexer 0 (DFLL48M reference)
+ * (4) Enable DFLL48M clock
+ * (5) Switch Generic Clock Generator 0 to DFLL48M. CPU will run at 48MHz.
+ * (6) Modify PRESCaler value of OSCM to have 8MHz
+ * (7) Put OSC8M as source for Generic Clock Generator 3
+ */
+
+ in the void SystemInit( void ) (/cores/arduino/startup.c), it setup the DFLL48M to 48MHz by doign this:
+ SYSCTRL_DFLLMUL_MUL((VARIANT_MCK + VARIANT_MAINOSC/2) / VARIANT_MAINOSC);
+ why need the "+VARIANT_MAINOSC/2":
+    (ChatGPT): The VARIANT_MAINOSC/2 term is added to the target frequency before dividing by VARIANT_MAINOSC.
+    This addition is likely included to round the result to the nearest integer when performing the division.
+    The addition of half the oscillator frequency is a common technique to perform a more accurate rounding
+    when converting a real number to an integer.
+
+    (FZ): since if the after-decimal part of the original number is less than 0.5, it will be cut, but if it's bigger than 0.5, it will be added by 1.
