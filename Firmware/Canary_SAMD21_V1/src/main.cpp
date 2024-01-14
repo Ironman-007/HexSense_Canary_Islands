@@ -49,7 +49,7 @@ void set_idle_level(int level) {
 
 void setup() {
   // set up led pin as an output:
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(LED_BUILTIN, INPUT_PULLUP);
 
   // https://github.com/IowaDave/SAMD21-RTC-Clock
   // https://blog.thea.codes/understanding-the-sam-d21-clocks/
