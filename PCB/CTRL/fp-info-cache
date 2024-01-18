@@ -1,4 +1,4 @@
-21903741300988531
+21946276018159684
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -63483,6 +63483,27 @@ Mylib
 1
 1
 Mylib
+1cm_round_touch_pad
+
+
+0
+1
+1
+Mylib
+1cmx1cm_touchpad
+
+
+0
+1
+1
+Mylib
+1mm_dia_pad
+
+
+0
+1
+1
+Mylib
 1x7_2mm_pin_header
 
 
@@ -63602,6 +63623,13 @@ AH086M555003-T
 6
 2
 Mylib
+ANT-916-HESM
+
+
+0
+2
+2
+Mylib
 ANT-916-USP
 
 
@@ -63615,6 +63643,13 @@ ASFLMB-16.000MHz-LY-T
 0
 4
 4
+Mylib
+Adafruit_RFM95W
+
+
+0
+14
+14
 Mylib
 Adafruit_feather_nRF52840
 
@@ -63700,6 +63735,13 @@ CYT1107
 3
 3
 Mylib
+Coral_XIAO_RP2040_stepper_ctrl
+
+
+0
+8
+8
+Mylib
 DF37C-10DP-0.4V(51)
 
 
@@ -63721,6 +63763,13 @@ DFN-12_DE
 13
 13
 Mylib
+DFN747X493X250-8N
+
+
+0
+8
+8
+Mylib
 ECX-31B
 
 
@@ -63734,6 +63783,27 @@ ECX-1637
 0
 4
 4
+Mylib
+FZ_SMD_01x06_2.00mm
+
+
+0
+6
+6
+Mylib
+GCT_DCJ200-05-A-XX-X_REVA
+
+
+0
+4
+4
+Mylib
+GCT_USB3131-30-0230-A_REVB
+
+
+0
+7
+7
 Mylib
 HC49_4HSMX
 
@@ -63763,6 +63833,13 @@ IC_XTR111AIDGQR
 16
 16
 Mylib
+INDPM7373X455N
+7.30mm x 7.30mm
+Inductor
+0
+2
+2
+Mylib
 JST_SH_1_6pin
 
 
@@ -63784,12 +63861,26 @@ KXOB25-14X1F
 2
 2
 Mylib
+KXOB201K04F-TR
+
+
+0
+2
+2
+Mylib
 LGA12R75P2X6_280X480X110
 
 
 0
 12
 12
+Mylib
+LTST-S310F2KT
+
+
+0
+4
+4
 Mylib
 Lipo_connect
 
@@ -63826,6 +63917,27 @@ MODULE_ARDUINO_PRO_MINI
 34
 34
 Mylib
+MODULE_NUCLEO-L476RG
+
+
+0
+76
+76
+Mylib
+MODULE_SC0915
+
+
+0
+53
+53
+Mylib
+MOUDLE14P-SMD-2.54-21X17.8MM
+
+
+0
+14
+14
+Mylib
 PQFN45P200X200X100-10N
 
 
@@ -63846,6 +63958,13 @@ PTS840_GKP_SMTR_LFS
 0
 5
 5
+Mylib
+QFN40P300X300X105-24N
+
+
+0
+24
+24
 Mylib
 QFN45P200X200X55-15N
 
@@ -63945,6 +64064,13 @@ SOT91P240X110-3N
 3
 3
 Mylib
+SOT95P280X100-5N
+
+
+0
+5
+5
+Mylib
 SOT95P280X125-5N
 
 
@@ -63972,6 +64098,27 @@ SWD_adapter
 0
 10
 10
+Mylib
+SW_B3F-1000
+
+
+0
+4
+4
+Mylib
+SW_SS12D07VG4
+
+
+0
+5
+5
+Mylib
+SW_TL1105F160Q
+
+
+0
+4
+4
 Mylib
 Sparkfun_LSM9DS1_Module
 
@@ -64092,6 +64239,13 @@ XDCR_GP2S700HCP
 4
 4
 Mylib
+conn_SMD_15mmx5mm
+
+
+0
+1
+1
+Mylib
 mini_SMA_through_hole_connector
 
 
@@ -64119,6 +64273,20 @@ nrf_mudule_fz
 0
 18
 18
+Mylib
+tactile_button_15mmx5mm
+
+
+0
+4
+4
+Mylib
+wemos S2 mini
+
+
+0
+32
+32
 NetTie
 NetTie-2_SMD_Pad0.5mm
 Net tie, 2 pin, 0.5mm square SMD pads
@@ -81864,6 +82032,13 @@ WiFi IEEE802.11 b/g/n
 0
 44
 44
+Raspberry_Pi_Pico_W_Kicad_Files-main
+MODULE_SC0918
+
+
+0
+40
+40
 Relay_SMD
 Relay_2P2T_10x6mm_TE_IMxxG
 Signal Relay, 10x6mm, 2 Form C, Gull Wings, https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Data+Sheet%7F108-98001%7FZ.1%7Fpdf%7FEnglish%7FENG_DS_108-98001_Z.1.pdf
@@ -83860,6 +84035,20 @@ Connector
 12
 12
 SamacSys_Parts
+3544-2
+3544-2
+Undefined or Miscellaneous
+0
+4
+4
+SamacSys_Parts
+8191SEMS
+8191-SEMS-1
+Connector
+0
+4
+4
+SamacSys_Parts
 0473340001
 0473340001-4
 Connector
@@ -83888,6 +84077,20 @@ Integrated Circuit
 10
 10
 SamacSys_Parts
+BOSCH_LGA-12
+Bosch_LGA-12
+Accelerometer
+0
+12
+12
+SamacSys_Parts
+DPS310XTSA1
+VLGA-8
+Integrated Circuit
+0
+8
+8
+SamacSys_Parts
 KMR231NGLFS
 KMR231NGLFS-1
 Switch
@@ -83895,12 +84098,33 @@ Switch
 4
 4
 SamacSys_Parts
+QFN50P150X150X60-8N
+RSE0008A
+Integrated Circuit
+0
+8
+8
+SamacSys_Parts
 QFN50P300X300X90-17N
 P-VQFN16-0303-0.50-001
 Integrated Circuit
 0
 17
 17
+SamacSys_Parts
+QFP50P1200X1200X160-64N
+64-Pin low profile quad flat package (10x10)
+Integrated Circuit
+0
+64
+64
+SamacSys_Parts
+RASPBERRYPIPICOW
+RASPBERRY PI PICO W-6
+Integrated Circuit
+0
+40
+40
 SamacSys_Parts
 SOIC127P600X175-8N
 FPT-8P-M02
@@ -83930,6 +84154,13 @@ Integrated Circuit
 16
 16
 SamacSys_Parts
+SON35P100X100X38-6N
+DG4157EDN-T1-GE4
+Integrated Circuit
+0
+6
+6
+SamacSys_Parts
 SON50P300X200X75-9N
 8 pin son
 Integrated Circuit
@@ -83951,6 +84182,13 @@ MOSFET (N-Channel)
 8
 8
 SamacSys_Parts
+SOT65P210X100-6N
+SC6 6 Lead Plastic SC70
+Integrated Circuit
+0
+6
+6
+SamacSys_Parts
 SOT65P210X110-5N
 SC70-5
 Integrated Circuit
@@ -83965,12 +84203,54 @@ Integrated Circuit
 6
 6
 SamacSys_Parts
+SOT96P240X100-3N
+SOT23_4
+MOSFET (N-Channel)
+0
+3
+3
+SamacSys_Parts
+SOT96P240X110-3N
+SOT-23_
+MOSFET (P-Channel)
+0
+3
+3
+SamacSys_Parts
+SOT230P700X180-4N
+DCY (R-PDSO-G4
+Integrated Circuit
+0
+4
+4
+SamacSys_Parts
+SOTFL50P160X60-3N
+SOT-523
+MOSFET (N-Channel)
+0
+3
+3
+SamacSys_Parts
 SOTFL50P160X60-6N
 DRL0006A
 Integrated Circuit
 0
 6
 6
+SamacSys_Parts
+VEML6030GS15
+VEML6030-GS15-1
+Integrated Circuit
+0
+6
+6
+SamacSys_Parts
+VEML7700
+VEML7700
+Integrated Circuit
+0
+4
+4
 Sensor
 Aosong_DHT11_5.5x12.0_P2.54mm
 Temperature and humidity module, http://akizukidenshi.com/download/ds/aosong/DHT11.pdf
