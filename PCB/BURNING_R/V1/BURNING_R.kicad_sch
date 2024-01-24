@@ -1434,7 +1434,7 @@
     (stroke (width 0) (type default))
     (uuid 392291ae-e634-462c-8e4c-cf00d9bdebd3)
   )
-  (polyline (pts (xy 184.785 57.785) (xy 193.04 57.785))
+  (polyline (pts (xy 177.292 57.912) (xy 193.04 57.912))
     (stroke (width 0) (type default))
     (uuid 39c17e28-c111-4525-9182-a7e63e101814)
   )
@@ -1455,7 +1455,7 @@
     (stroke (width 0) (type default))
     (uuid 3f343929-cf20-4bbe-a9de-dd217b905843)
   )
-  (polyline (pts (xy 193.04 60.96) (xy 184.785 60.96))
+  (polyline (pts (xy 193.04 61.087) (xy 177.292 61.087))
     (stroke (width 0) (type default))
     (uuid 40465722-24ae-4939-b0f9-0f4ecaf722b6)
   )
@@ -2106,7 +2106,7 @@
     (stroke (width 0) (type default))
     (uuid f3f91864-7639-425e-a447-c9c5efe1dc4c)
   )
-  (polyline (pts (xy 184.785 57.785) (xy 184.785 60.96))
+  (polyline (pts (xy 177.292 57.912) (xy 177.292 61.087))
     (stroke (width 0) (type default))
     (uuid f88f06db-d005-4a15-969d-a89cb5c8a19c)
   )
@@ -2160,7 +2160,7 @@
     (effects (font (size 2 2) (thickness 0.4) bold) (justify left bottom))
     (uuid 04560076-e88c-4ce7-9278-01521cc0cd81)
   )
-  (text "Cut D4" (at 185.42 60.452 0)
+  (text "Cut D4 in MCU" (at 177.8 60.452 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 0a574984-551d-4afe-a34a-f78a33da825c)
   )
@@ -2724,8 +2724,8 @@
     (pin "2" (uuid 51b25147-6788-4762-8dfc-8d2511d65a3d))
     (pin "3" (uuid 90557709-1bfb-4659-9295-734ecab0df91))
     (pin "4" (uuid 048e5274-6a30-491d-ba43-b16edc975746))
-    (pin "MP" (uuid 580a2c13-c519-406d-bdb4-2bcc720e7932))
-    (pin "MP" (uuid 580a2c13-c519-406d-bdb4-2bcc720e7932))
+    (pin "MP" (uuid 580a2c13-c519-406d-bdb4-2bcc720e7934))
+    (pin "MP" (uuid 580a2c13-c519-406d-bdb4-2bcc720e7934))
     (instances
       (project "BURNING_R"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -2845,8 +2845,8 @@
     (pin "2" (uuid 714c387c-9066-4b4f-b1bc-5a8c095c991d))
     (pin "3" (uuid 60117840-c314-4d4e-93d2-50da1bcb4b4f))
     (pin "4" (uuid f768aabc-59a9-467f-8103-e879115affba))
-    (pin "MP" (uuid 80b64d33-0ee9-4f3c-997f-d1ef967781fa))
-    (pin "MP" (uuid 80b64d33-0ee9-4f3c-997f-d1ef967781fa))
+    (pin "MP" (uuid 80b64d33-0ee9-4f3c-997f-d1ef967781fc))
+    (pin "MP" (uuid 80b64d33-0ee9-4f3c-997f-d1ef967781fc))
     (instances
       (project "BURNING_R"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -2926,8 +2926,8 @@
     (pin "2" (uuid 9a566554-2031-4203-a94a-23947c161bac))
     (pin "3" (uuid 95597bd8-3d92-445f-928a-ae98e5225199))
     (pin "4" (uuid c690f108-fcd3-4642-999b-4537682552d8))
-    (pin "MP" (uuid 96fe639f-da68-420c-ad60-4eef4bbab779))
-    (pin "MP" (uuid 96fe639f-da68-420c-ad60-4eef4bbab779))
+    (pin "MP" (uuid 96fe639f-da68-420c-ad60-4eef4bbab77b))
+    (pin "MP" (uuid 96fe639f-da68-420c-ad60-4eef4bbab77b))
     (instances
       (project "BURNING_R"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -3262,8 +3262,8 @@
     (pin "2" (uuid 50fb6f4c-22f1-40fa-a980-b47f77a03e98))
     (pin "3" (uuid 04b75f9f-30c3-422f-bb59-480ec7c751fc))
     (pin "4" (uuid 4c0bf3c7-3a5b-4f9a-ad58-c7c198a8eb86))
-    (pin "MP" (uuid c81ec61a-49c4-41d8-a750-e9a80eaf1ff6))
-    (pin "MP" (uuid c81ec61a-49c4-41d8-a750-e9a80eaf1ff6))
+    (pin "MP" (uuid c81ec61a-49c4-41d8-a750-e9a80eaf1ff8))
+    (pin "MP" (uuid c81ec61a-49c4-41d8-a750-e9a80eaf1ff8))
     (instances
       (project "BURNING_R"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -3450,8 +3450,8 @@
     (pin "2" (uuid d63cf58b-c11f-4a37-9971-ad1a4b63907a))
     (pin "3" (uuid 29341c0d-90a7-48ae-af17-c87f53462d59))
     (pin "4" (uuid c22c989e-bc20-4f30-a89e-210e83bba55e))
-    (pin "MP" (uuid 97217fe6-0c75-4b69-a18a-289af916bf36))
-    (pin "MP" (uuid 97217fe6-0c75-4b69-a18a-289af916bf36))
+    (pin "MP" (uuid 97217fe6-0c75-4b69-a18a-289af916bf38))
+    (pin "MP" (uuid 97217fe6-0c75-4b69-a18a-289af916bf38))
     (instances
       (project "BURNING_R"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -4073,8 +4073,8 @@
     (pin "2" (uuid ac482dfa-8102-4c62-8e99-49c7b435157f))
     (pin "3" (uuid 5e259db0-a57b-4d17-9918-a26e3b30718f))
     (pin "4" (uuid 7d39cb97-d293-4794-9cfe-0889f334fae5))
-    (pin "MP" (uuid 60e264c0-898d-479d-9b9d-d2fba32efd83))
-    (pin "MP" (uuid 60e264c0-898d-479d-9b9d-d2fba32efd83))
+    (pin "MP" (uuid 60e264c0-898d-479d-9b9d-d2fba32efd85))
+    (pin "MP" (uuid 60e264c0-898d-479d-9b9d-d2fba32efd85))
     (instances
       (project "BURNING_R"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"

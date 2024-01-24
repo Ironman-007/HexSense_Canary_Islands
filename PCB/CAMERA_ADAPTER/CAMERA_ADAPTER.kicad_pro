@@ -416,7 +416,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "CONN.kicad_pro",
+    "filename": "CAMERA_ADAPTER.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -452,7 +452,7 @@
       "idf": "",
       "netlist": "",
       "specctra_dsn": "",
-      "step": "CONN.step",
+      "step": "CAMERA_ADAPTER.step",
       "vrml": ""
     },
     "page_layout_descr_file": ""
