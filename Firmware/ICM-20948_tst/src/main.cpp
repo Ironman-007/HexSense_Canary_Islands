@@ -7,13 +7,20 @@
 Adafruit_ICM20948 icm;
 uint16_t measurement_delay_us = 65535; // Delay between measurements for testing
 
+// int _1V8_EN = PIN_LED_TXL;
+
 void setup(void) {
   Serial.begin(115200);
+
+  pinMode(PIN_LED_TXL, OUTPUT);
+  digitalWrite(PIN_LED_TXL, HIGH);
 
   while (!Serial)
     delay(10); // will pause Zero, Leonardo, etc until serial console opens
 
   Serial.println("Adafruit ICM20948 test!");
+
+  // Wire.begin();
 
   // Try to initialize!
   if (!icm.begin_I2C()) {
