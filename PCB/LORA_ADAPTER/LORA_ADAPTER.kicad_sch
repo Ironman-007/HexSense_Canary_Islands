@@ -1164,8 +1164,8 @@
     (pin "4" (uuid cbdb56cb-506c-47aa-85a1-03784371599a))
     (pin "5" (uuid 6ad039c9-c6fb-472e-b274-5238cd74288d))
     (pin "6" (uuid 46f9975f-28e6-4dd4-9645-3aaaf64a2b11))
-    (pin "MP" (uuid 66bfca62-108f-49cf-8b54-9ae58c42005b))
-    (pin "MP" (uuid 66bfca62-108f-49cf-8b54-9ae58c42005b))
+    (pin "MP" (uuid 66bfca62-108f-49cf-8b54-9ae58c42005d))
+    (pin "MP" (uuid 66bfca62-108f-49cf-8b54-9ae58c42005d))
     (instances
       (project "LORA_ADAPTER"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
