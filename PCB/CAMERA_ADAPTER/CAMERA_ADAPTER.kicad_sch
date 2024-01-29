@@ -2223,8 +2223,8 @@
     (pin "4" (uuid 11f05de4-b079-41e1-95fd-af8c348ccb71))
     (pin "5" (uuid 00ab90d0-a229-4281-9c06-f8b51481e329))
     (pin "6" (uuid c578575e-3b79-4068-94ab-69a0ad3e4c3d))
-    (pin "MP" (uuid 64678c14-f7b9-4765-8f70-0d2c6ab30bdd))
-    (pin "MP" (uuid 64678c14-f7b9-4765-8f70-0d2c6ab30bdd))
+    (pin "MP" (uuid 64678c14-f7b9-4765-8f70-0d2c6ab30bdf))
+    (pin "MP" (uuid 64678c14-f7b9-4765-8f70-0d2c6ab30bdf))
     (instances
       (project "CAMERA_ADAPTER"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -2808,8 +2808,8 @@
     (pin "4" (uuid b6bb1dfb-9c3c-4cfe-bd1b-0d64a31d250d))
     (pin "5" (uuid 3b209831-869e-45ab-97ba-7f6df759cc9a))
     (pin "6" (uuid fc049386-20e8-4589-a68f-f5da6ffef6c5))
-    (pin "MP" (uuid aab4a183-3a84-4b0e-b605-49d49be73a44))
-    (pin "MP" (uuid aab4a183-3a84-4b0e-b605-49d49be73a44))
+    (pin "MP" (uuid aab4a183-3a84-4b0e-b605-49d49be73a46))
+    (pin "MP" (uuid aab4a183-3a84-4b0e-b605-49d49be73a46))
     (instances
       (project "CAMERA_ADAPTER"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -2866,8 +2866,8 @@
     (pin "4" (uuid e5284f0f-255c-4f9a-aae7-c1b9c1490452))
     (pin "5" (uuid dcd07480-18af-438c-9faa-940b743dc08d))
     (pin "6" (uuid 7ac2c160-b244-4c2b-8df8-4bc3d01bfb15))
-    (pin "MP" (uuid 6c0503fa-9b2b-4f31-9600-8d1dab69fab6))
-    (pin "MP" (uuid 6c0503fa-9b2b-4f31-9600-8d1dab69fab6))
+    (pin "MP" (uuid 6c0503fa-9b2b-4f31-9600-8d1dab69fab8))
+    (pin "MP" (uuid 6c0503fa-9b2b-4f31-9600-8d1dab69fab8))
     (instances
       (project "CAMERA_ADAPTER"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -2984,8 +2984,8 @@
     (pin "4" (uuid 3f82014e-6398-4464-ba8a-f02645abf0d7))
     (pin "5" (uuid 42123fd0-e9d4-4b4c-9939-3b332ca36af1))
     (pin "6" (uuid f93b6ddb-8092-4482-8aba-a064461f9648))
-    (pin "MP" (uuid 37456dd6-cfdc-4e5b-b48f-46d351777e25))
-    (pin "MP" (uuid 37456dd6-cfdc-4e5b-b48f-46d351777e25))
+    (pin "MP" (uuid 37456dd6-cfdc-4e5b-b48f-46d351777e27))
+    (pin "MP" (uuid 37456dd6-cfdc-4e5b-b48f-46d351777e27))
     (instances
       (project "CAMERA_ADAPTER"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -3571,8 +3571,8 @@
     (pin "4" (uuid 895c4206-eaa8-4c67-a9ec-add4f3a72936))
     (pin "5" (uuid 40a2b4fa-7d18-4542-a31a-d3dbbb6309e1))
     (pin "6" (uuid c013ed3a-dbe4-42d4-b708-1ddfa00c6078))
-    (pin "MP" (uuid 9d3acc4c-8cc9-4ce5-9752-9957775d1a6a))
-    (pin "MP" (uuid 9d3acc4c-8cc9-4ce5-9752-9957775d1a6a))
+    (pin "MP" (uuid 9d3acc4c-8cc9-4ce5-9752-9957775d1a6c))
+    (pin "MP" (uuid 9d3acc4c-8cc9-4ce5-9752-9957775d1a6c))
     (instances
       (project "CAMERA_ADAPTER"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -3964,8 +3964,8 @@
     (pin "4" (uuid fe1f2c85-955a-4826-99a8-912466c47779))
     (pin "5" (uuid 7cf90151-08e3-4559-8b1b-850b464f9dc9))
     (pin "6" (uuid f76a2896-7bf2-47cd-9c75-0c93e7fa1fb7))
-    (pin "MP" (uuid dab0a99f-754c-442c-97e8-f9c42fd0b132))
-    (pin "MP" (uuid dab0a99f-754c-442c-97e8-f9c42fd0b132))
+    (pin "MP" (uuid dab0a99f-754c-442c-97e8-f9c42fd0b134))
+    (pin "MP" (uuid dab0a99f-754c-442c-97e8-f9c42fd0b134))
     (instances
       (project "CAMERA_ADAPTER"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
