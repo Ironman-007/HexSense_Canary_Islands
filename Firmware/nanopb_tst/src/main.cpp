@@ -5,7 +5,7 @@
 
 #include "env_comm.pb.h"
 
-uint8_t buffer[100];
+uint8_t buffer[256];
 size_t  message_length;
 bool    status;
 
@@ -24,7 +24,7 @@ void decodeReceivedData(const uint8_t* data, size_t size) {
   Env_data_frame env_data_frame_recv  = Env_data_frame_init_zero;
   pb_istream_t   stream_recv          = pb_istream_from_buffer(data, size);
 
-  for (int i = 0; i < size; i++) {
+  for (unsigned int i = 0; i < size; i++) {
     Serial.print(data[i], HEX);
     Serial.print(" ");
   }

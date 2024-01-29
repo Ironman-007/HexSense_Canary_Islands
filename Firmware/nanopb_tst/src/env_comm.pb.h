@@ -22,9 +22,8 @@ typedef enum _Env_ack_frame_ack {
 
 /* Struct definitions */
 typedef struct _Env_data_frame {
-    int32_t header;
-    int32_t time_stamp;
     int32_t ID;
+    int32_t time_stamp;
     int32_t seq_num;
     float temperature;
     float co2_level;
@@ -33,13 +32,11 @@ typedef struct _Env_data_frame {
 } Env_data_frame;
 
 typedef struct _Env_cmd_frame {
-    int32_t header;
     int32_t ID;
     int32_t crc;
 } Env_cmd_frame;
 
 typedef struct _Env_ack_frame {
-    int32_t header;
     int32_t ID;
     int32_t crc;
 } Env_ack_frame;
@@ -63,53 +60,47 @@ extern "C" {
 
 
 /* Initializer values for message structs */
-#define Env_data_frame_init_default              {0, 0, 0, 0, 0, 0, 0, 0}
-#define Env_cmd_frame_init_default               {0, 0, 0}
-#define Env_ack_frame_init_default               {0, 0, 0}
-#define Env_data_frame_init_zero                 {0, 0, 0, 0, 0, 0, 0, 0}
-#define Env_cmd_frame_init_zero                  {0, 0, 0}
-#define Env_ack_frame_init_zero                  {0, 0, 0}
+#define Env_data_frame_init_default              {0, 0, 0, 0, 0, 0, 0}
+#define Env_cmd_frame_init_default               {0, 0}
+#define Env_ack_frame_init_default               {0, 0}
+#define Env_data_frame_init_zero                 {0, 0, 0, 0, 0, 0, 0}
+#define Env_cmd_frame_init_zero                  {0, 0}
+#define Env_ack_frame_init_zero                  {0, 0}
 
 /* Field tags (for use in manual encoding/decoding) */
-#define Env_data_frame_header_tag                1
+#define Env_data_frame_ID_tag                    1
 #define Env_data_frame_time_stamp_tag            2
-#define Env_data_frame_ID_tag                    3
-#define Env_data_frame_seq_num_tag               4
-#define Env_data_frame_temperature_tag           5
-#define Env_data_frame_co2_level_tag             6
-#define Env_data_frame_humidity_tag              7
-#define Env_data_frame_crc_tag                   8
-#define Env_cmd_frame_header_tag                 1
-#define Env_cmd_frame_ID_tag                     2
-#define Env_cmd_frame_crc_tag                    3
-#define Env_ack_frame_header_tag                 1
-#define Env_ack_frame_ID_tag                     2
-#define Env_ack_frame_crc_tag                    3
+#define Env_data_frame_seq_num_tag               3
+#define Env_data_frame_temperature_tag           4
+#define Env_data_frame_co2_level_tag             5
+#define Env_data_frame_humidity_tag              6
+#define Env_data_frame_crc_tag                   7
+#define Env_cmd_frame_ID_tag                     1
+#define Env_cmd_frame_crc_tag                    2
+#define Env_ack_frame_ID_tag                     1
+#define Env_ack_frame_crc_tag                    2
 
 /* Struct field encoding specification for nanopb */
 #define Env_data_frame_FIELDLIST(X, a) \
-X(a, STATIC,   SINGULAR, INT32,    header,            1) \
+X(a, STATIC,   SINGULAR, INT32,    ID,                1) \
 X(a, STATIC,   SINGULAR, INT32,    time_stamp,        2) \
-X(a, STATIC,   SINGULAR, INT32,    ID,                3) \
-X(a, STATIC,   SINGULAR, INT32,    seq_num,           4) \
-X(a, STATIC,   SINGULAR, FLOAT,    temperature,       5) \
-X(a, STATIC,   SINGULAR, FLOAT,    co2_level,         6) \
-X(a, STATIC,   SINGULAR, FLOAT,    humidity,          7) \
-X(a, STATIC,   SINGULAR, INT32,    crc,               8)
+X(a, STATIC,   SINGULAR, INT32,    seq_num,           3) \
+X(a, STATIC,   SINGULAR, FLOAT,    temperature,       4) \
+X(a, STATIC,   SINGULAR, FLOAT,    co2_level,         5) \
+X(a, STATIC,   SINGULAR, FLOAT,    humidity,          6) \
+X(a, STATIC,   SINGULAR, INT32,    crc,               7)
 #define Env_data_frame_CALLBACK NULL
 #define Env_data_frame_DEFAULT NULL
 
 #define Env_cmd_frame_FIELDLIST(X, a) \
-X(a, STATIC,   SINGULAR, INT32,    header,            1) \
-X(a, STATIC,   SINGULAR, INT32,    ID,                2) \
-X(a, STATIC,   SINGULAR, INT32,    crc,               3)
+X(a, STATIC,   SINGULAR, INT32,    ID,                1) \
+X(a, STATIC,   SINGULAR, INT32,    crc,               2)
 #define Env_cmd_frame_CALLBACK NULL
 #define Env_cmd_frame_DEFAULT NULL
 
 #define Env_ack_frame_FIELDLIST(X, a) \
-X(a, STATIC,   SINGULAR, INT32,    header,            1) \
-X(a, STATIC,   SINGULAR, INT32,    ID,                2) \
-X(a, STATIC,   SINGULAR, INT32,    crc,               3)
+X(a, STATIC,   SINGULAR, INT32,    ID,                1) \
+X(a, STATIC,   SINGULAR, INT32,    crc,               2)
 #define Env_ack_frame_CALLBACK NULL
 #define Env_ack_frame_DEFAULT NULL
 
@@ -124,9 +115,9 @@ extern const pb_msgdesc_t Env_ack_frame_msg;
 
 /* Maximum encoded size of messages (where known) */
 #define ENV_COMM_PB_H_MAX_SIZE                   Env_data_frame_size
-#define Env_ack_frame_size                       33
-#define Env_cmd_frame_size                       33
-#define Env_data_frame_size                      70
+#define Env_ack_frame_size                       22
+#define Env_cmd_frame_size                       22
+#define Env_data_frame_size                      59
 
 #ifdef __cplusplus
 } /* extern "C" */
