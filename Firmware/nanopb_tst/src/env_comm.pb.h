@@ -22,39 +22,25 @@ typedef enum _Env_ack_frame_ack {
 
 /* Struct definitions */
 typedef struct _Env_data_frame {
-    bool has_header;
     int32_t header;
-    bool has_time_stamp;
     int32_t time_stamp;
-    bool has_ID;
     int32_t ID;
-    bool has_seq_num;
     int32_t seq_num;
-    bool has_temperature;
     float temperature;
-    bool has_co2_level;
     float co2_level;
-    bool has_humidity;
     float humidity;
-    bool has_crc;
     int32_t crc;
 } Env_data_frame;
 
 typedef struct _Env_cmd_frame {
-    bool has_header;
     int32_t header;
-    bool has_ID;
     int32_t ID;
-    bool has_crc;
     int32_t crc;
 } Env_cmd_frame;
 
 typedef struct _Env_ack_frame {
-    bool has_header;
     int32_t header;
-    bool has_ID;
     int32_t ID;
-    bool has_crc;
     int32_t crc;
 } Env_ack_frame;
 
@@ -77,12 +63,12 @@ extern "C" {
 
 
 /* Initializer values for message structs */
-#define Env_data_frame_init_default              {false, 0, false, 0, false, 0, false, 0, false, 0, false, 0, false, 0, false, 0}
-#define Env_cmd_frame_init_default               {false, 0, false, 0, false, 0}
-#define Env_ack_frame_init_default               {false, 0, false, 0, false, 0}
-#define Env_data_frame_init_zero                 {false, 0, false, 0, false, 0, false, 0, false, 0, false, 0, false, 0, false, 0}
-#define Env_cmd_frame_init_zero                  {false, 0, false, 0, false, 0}
-#define Env_ack_frame_init_zero                  {false, 0, false, 0, false, 0}
+#define Env_data_frame_init_default              {0, 0, 0, 0, 0, 0, 0, 0}
+#define Env_cmd_frame_init_default               {0, 0, 0}
+#define Env_ack_frame_init_default               {0, 0, 0}
+#define Env_data_frame_init_zero                 {0, 0, 0, 0, 0, 0, 0, 0}
+#define Env_cmd_frame_init_zero                  {0, 0, 0}
+#define Env_ack_frame_init_zero                  {0, 0, 0}
 
 /* Field tags (for use in manual encoding/decoding) */
 #define Env_data_frame_header_tag                1
@@ -102,28 +88,28 @@ extern "C" {
 
 /* Struct field encoding specification for nanopb */
 #define Env_data_frame_FIELDLIST(X, a) \
-X(a, STATIC,   OPTIONAL, INT32,    header,            1) \
-X(a, STATIC,   OPTIONAL, INT32,    time_stamp,        2) \
-X(a, STATIC,   OPTIONAL, INT32,    ID,                3) \
-X(a, STATIC,   OPTIONAL, INT32,    seq_num,           4) \
-X(a, STATIC,   OPTIONAL, FLOAT,    temperature,       5) \
-X(a, STATIC,   OPTIONAL, FLOAT,    co2_level,         6) \
-X(a, STATIC,   OPTIONAL, FLOAT,    humidity,          7) \
-X(a, STATIC,   OPTIONAL, INT32,    crc,               8)
+X(a, STATIC,   SINGULAR, INT32,    header,            1) \
+X(a, STATIC,   SINGULAR, INT32,    time_stamp,        2) \
+X(a, STATIC,   SINGULAR, INT32,    ID,                3) \
+X(a, STATIC,   SINGULAR, INT32,    seq_num,           4) \
+X(a, STATIC,   SINGULAR, FLOAT,    temperature,       5) \
+X(a, STATIC,   SINGULAR, FLOAT,    co2_level,         6) \
+X(a, STATIC,   SINGULAR, FLOAT,    humidity,          7) \
+X(a, STATIC,   SINGULAR, INT32,    crc,               8)
 #define Env_data_frame_CALLBACK NULL
 #define Env_data_frame_DEFAULT NULL
 
 #define Env_cmd_frame_FIELDLIST(X, a) \
-X(a, STATIC,   OPTIONAL, INT32,    header,            1) \
-X(a, STATIC,   OPTIONAL, INT32,    ID,                2) \
-X(a, STATIC,   OPTIONAL, INT32,    crc,               3)
+X(a, STATIC,   SINGULAR, INT32,    header,            1) \
+X(a, STATIC,   SINGULAR, INT32,    ID,                2) \
+X(a, STATIC,   SINGULAR, INT32,    crc,               3)
 #define Env_cmd_frame_CALLBACK NULL
 #define Env_cmd_frame_DEFAULT NULL
 
 #define Env_ack_frame_FIELDLIST(X, a) \
-X(a, STATIC,   OPTIONAL, INT32,    header,            1) \
-X(a, STATIC,   OPTIONAL, INT32,    ID,                2) \
-X(a, STATIC,   OPTIONAL, INT32,    crc,               3)
+X(a, STATIC,   SINGULAR, INT32,    header,            1) \
+X(a, STATIC,   SINGULAR, INT32,    ID,                2) \
+X(a, STATIC,   SINGULAR, INT32,    crc,               3)
 #define Env_ack_frame_CALLBACK NULL
 #define Env_ack_frame_DEFAULT NULL
 

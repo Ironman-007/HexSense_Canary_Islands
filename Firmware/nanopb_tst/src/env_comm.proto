@@ -1,37 +1,37 @@
 syntax = "proto3";
 
 message Env_data_frame {
-    optional int32 header      = 1;
-    optional int32 time_stamp  = 2;
-    optional int32 ID          = 3;
-    optional int32 seq_num     = 4;
-    optional float temperature = 5;
-    optional float co2_level   = 6;
-    optional float humidity    = 7;
-    optional int32 crc         = 8;
+    int32 header      = 1;
+    int32 time_stamp  = 2;
+    int32 ID          = 3;
+    int32 seq_num     = 4;
+    float temperature = 5;
+    float co2_level   = 6;
+    float humidity    = 7;
+    int32 crc         = 8;
 }
 
 message Env_cmd_frame {
-    optional int32 header = 1;
-    optional int32 ID     = 2;
+    int32 header = 1;
+    int32 ID     = 2;
 
     enum cmd {
         START = 0;
         PING  = 1;
     }
 
-    optional int32 crc    = 3;
+    int32 crc    = 3;
 }
 
 message Env_ack_frame {
-    optional int32 header = 1;
-    optional int32  ID    = 2;
+    int32 header = 1;
+    int32  ID    = 2;
 
     enum ack {
         ACK = 0;
         NCK = 1;
     }
 
-    optional int32 crc    = 3;
+    int32 crc    = 3;
 }
 

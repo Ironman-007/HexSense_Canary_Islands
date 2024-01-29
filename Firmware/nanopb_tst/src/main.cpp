@@ -19,44 +19,20 @@ void setup() {
   }
 }
 
-void loop() {
-  Env_data_frame env_data_frame = Env_data_frame_init_zero;
-  pb_ostream_t   stream         = pb_ostream_from_buffer(buffer, sizeof(buffer));
+void decodeReceivedData(const uint8_t* data, size_t size) {
+  /* Allocate space for the decoded message. */
+  Env_data_frame env_data_frame_recv  = Env_data_frame_init_zero;
+  pb_istream_t   stream_recv          = pb_istream_from_buffer(data, size);
 
-  // put your main code here, to run repeatedly:
-  env_data_frame.temperature     = 25.0   + step;
-  env_data_frame.has_temperature = true;
-  env_data_frame.humidity        = 50.0   + step;
-  env_data_frame.has_humidity    = true;
-  env_data_frame.co2_level       = 1000.0 + step;
-  env_data_frame.has_co2_level   = true;
-
-  status = pb_encode(&stream, Env_data_frame_fields, &env_data_frame);
-  message_length = stream.bytes_written;
-
-  Serial.print(status);
-  Serial.print(" ");
-  Serial.println(message_length);
-
-  for (int i = 0; i < message_length; i++) {
-    Serial.print(buffer[i], HEX);
+  for (int i = 0; i < size; i++) {
+    Serial.print(data[i], HEX);
     Serial.print(" ");
   }
   Serial.println("");
 
-  step += 0.1;
-
-  /* Allocate space for the decoded message. */
-  Env_data_frame env_data_frame_recv  = Env_data_frame_init_zero;
-  pb_istream_t stream_recv = pb_istream_from_buffer(buffer, message_length);
-
-  env_data_frame_recv.has_temperature = true;
-  env_data_frame_recv.has_humidity    = true;
-  env_data_frame_recv.has_co2_level   = true;
-
   /* Now we are ready to decode the message. */
-  status = pb_decode(&stream_recv, Env_ack_frame_fields, &env_data_frame_recv);
-  
+  bool status = pb_decode(&stream_recv, Env_data_frame_fields, &env_data_frame_recv);
+
   /* Check for errors... */
   if (!status){
     Serial.println("Decoding failed");
@@ -69,6 +45,27 @@ void loop() {
   Serial.println(env_data_frame_recv.humidity);
   Serial.print("co2_level: ");
   Serial.println(env_data_frame_recv.co2_level);
+}
+
+void loop() {
+  Env_data_frame env_data_frame = Env_data_frame_init_zero;
+  pb_ostream_t   stream         = pb_ostream_from_buffer(buffer, sizeof(buffer));
+
+  // put your main code here, to run repeatedly:
+  env_data_frame.temperature     = 25.0   + step;
+  env_data_frame.humidity        = 50.0   + step;
+  env_data_frame.co2_level       = 1000.0 + step;
+
+  status = pb_encode(&stream, Env_data_frame_fields, &env_data_frame);
+  message_length = stream.bytes_written;
+
+  Serial.print(status);
+  Serial.print(" ");
+  Serial.println(message_length);
+
+  step += 0.1;
+
+  decodeReceivedData(buffer, message_length);
 
   delay(1000);
 }
