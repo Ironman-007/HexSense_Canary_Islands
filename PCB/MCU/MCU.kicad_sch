@@ -3009,6 +3009,12 @@
     (uuid ffca34e2-5295-47f4-8361-1ccbab6c5807)
   )
 
+  (rectangle (start 108.204 99.06) (end 128.27 102.108)
+    (stroke (width 0) (type default))
+    (fill (type none))
+    (uuid 62cea8eb-90ac-4290-8b28-76f5a2931d3a)
+  )
+
   (text "ICM-20948" (at 133.35 20.32 0)
     (effects (font (size 2.54 2.54) (thickness 0.508) bold) (justify left bottom))
     (uuid 1329598a-6e49-4d76-8428-ed0f07a63625)
@@ -3048,6 +3054,10 @@
   (text "3.3V" (at 90.17 175.26 0)
     (effects (font (size 2.54 2.54) (thickness 0.508) bold) (justify left bottom))
     (uuid 9a873525-9321-4fb9-bc47-4290093a33e3)
+  )
+  (text "Switch these 2 pins" (at 108.458 101.6 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid b2056b86-e715-4ae9-9a97-474ba915ab35)
   )
   (text "SSQ-106-23-G-D" (at 216.916 20.32 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))

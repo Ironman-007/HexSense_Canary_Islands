@@ -5,6 +5,9 @@
 
 #include "env_comm.pb.h"
 
+#include <SPI.h>
+#include <LoRa.h>
+
 uint8_t buffer[256];
 size_t  message_length;
 bool    status;
@@ -14,52 +17,70 @@ float step = 0.0;
 uint32_t seq_num_i = 0;
 uint32_t crc_i     = 0;
 
+int lora_en_pin = A3;
+
 void setup() {
+  pinMode(lora_en_pin, OUTPUT);
+  digitalWrite(lora_en_pin, HIGH);
+  delay(1000);
+
   // put your setup code here, to run once:
   Serial.begin(115200);
   while (!Serial) {
     delay(10);
   }
-}
 
-void decodeReceivedData(const uint8_t* data, size_t size) {
-  Env_data_frame env_data_frame_recv  = Env_data_frame_init_zero;
-  pb_istream_t   stream_recv          = pb_istream_from_buffer(data, size);
+  LoRa.setPins(PIN_SERIAL_TX, 2, 3);
 
-  for (unsigned int i = 0; i < size; i++) {
-    Serial.print(data[i], HEX);
-    Serial.print(" ");
-  }
-  Serial.println("");
-  bool status = pb_decode(&stream_recv, Env_data_frame_fields, &env_data_frame_recv);
-
-  if (!status){
-    Serial.println("Decoding failed");
+  while (!LoRa.begin(915E6)) {
+    Serial.println("Starting LoRa failed!");
+    delay(100);
   }
 
-  /* Print the data contained in the message. */
-  Serial.print("ID: ");
-  Serial.println(env_data_frame_recv.ID);
-  Serial.print("time_stamp: ");
-  Serial.println(env_data_frame_recv.time_stamp);
-  Serial.print("seq_num: ");
-  Serial.println(env_data_frame_recv.seq_num);
-  Serial.print("temperature: ");
-  Serial.println(env_data_frame_recv.temperature);
-  Serial.print("humidity: ");
-  Serial.println(env_data_frame_recv.humidity);
-  Serial.print("co2_level: ");
-  Serial.println(env_data_frame_recv.co2_level);
-  Serial.print("CRC: ");
-  Serial.println(env_data_frame_recv.crc);
+  // LoRa.setSpreadingFactor(7);
+
+  Serial.print("Spread factor: ");
+  Serial.println(LoRa.getSpreadingFactor());
 }
 
-void send2LoRa(uint8_t* buffer, size_t message_length) {
-  ;
-}
+// void decodeReceivedData(const uint8_t* data, size_t size) {
+//   Env_data_frame env_data_frame_recv  = Env_data_frame_init_zero;
+//   pb_istream_t   stream_recv          = pb_istream_from_buffer(data, size);
 
-void cobs_encode_msg(uint8_t* buffer, size_t message_length) {
-  ;
+//   for (unsigned int i = 0; i < size; i++) {
+//     Serial.print(data[i], HEX);
+//     Serial.print(" ");
+//   }
+//   Serial.println("");
+
+//   bool status = pb_decode(&stream_recv, Env_data_frame_fields, &env_data_frame_recv);
+
+//   if (!status){
+//     Serial.println("Decoding failed");
+//   }
+
+//   /* Print the data contained in the message. */
+//   Serial.print("ID: ");
+//   Serial.println(env_data_frame_recv.ID);
+//   Serial.print("time_stamp: ");
+//   Serial.println(env_data_frame_recv.time_stamp);
+//   Serial.print("seq_num: ");
+//   Serial.println(env_data_frame_recv.seq_num);
+//   Serial.print("temperature: ");
+//   Serial.println(env_data_frame_recv.temperature);
+//   Serial.print("humidity: ");
+//   Serial.println(env_data_frame_recv.humidity);
+//   Serial.print("co2_level: ");
+//   Serial.println(env_data_frame_recv.co2_level);
+//   Serial.print("CRC: ");
+//   Serial.println(env_data_frame_recv.crc);
+// }
+
+void send_data_to_lora(uint8_t* buffer, size_t message_length) {
+  LoRa.beginPacket();
+  LoRa.write(buffer, message_length);
+  LoRa.endPacket();
+  Serial.println("Sent data to LoRa");
 }
 
 void loop() {
@@ -78,14 +99,24 @@ void loop() {
   status = pb_encode(&stream, Env_data_frame_fields, &env_data_frame);
   message_length = stream.bytes_written;
 
-  Serial.print(status);
-  Serial.print(" ");
-  Serial.println(message_length);
+  // Serial.print(status);
+  // Serial.print(" ");
+  // Serial.println(message_length);
 
   step += 0.1;
   seq_num_i++;
 
+  // print binary data in buffer
+  for (unsigned int i = 0; i < message_length; i++) {
+    Serial.print(buffer[i], HEX);
+    Serial.print(" ");
+  }
+
+  send_data_to_lora(buffer, message_length);
+
   // decodeReceivedData(buffer, message_length);
+
+  // LoRa.sleep();
 
   delay(2000);
 }

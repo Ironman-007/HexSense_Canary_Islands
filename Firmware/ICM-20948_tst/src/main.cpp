@@ -30,41 +30,6 @@ void setup(void) {
       delay(10);
     }
   }
-  Serial.println("ICM20948 Found!");
-  // icm.setAccelRange(ICM20948_ACCEL_RANGE_16_G);
-  Serial.print("Accelerometer range set to: ");
-  switch (icm.getAccelRange()) {
-  case ICM20948_ACCEL_RANGE_2_G:
-    Serial.println("+-2G");
-    break;
-  case ICM20948_ACCEL_RANGE_4_G:
-    Serial.println("+-4G");
-    break;
-  case ICM20948_ACCEL_RANGE_8_G:
-    Serial.println("+-8G");
-    break;
-  case ICM20948_ACCEL_RANGE_16_G:
-    Serial.println("+-16G");
-    break;
-  }
-  Serial.println("OK");
-
-  // icm.setGyroRange(ICM20948_GYRO_RANGE_2000_DPS);
-  Serial.print("Gyro range set to: ");
-  switch (icm.getGyroRange()) {
-  case ICM20948_GYRO_RANGE_250_DPS:
-    Serial.println("250 degrees/s");
-    break;
-  case ICM20948_GYRO_RANGE_500_DPS:
-    Serial.println("500 degrees/s");
-    break;
-  case ICM20948_GYRO_RANGE_1000_DPS:
-    Serial.println("1000 degrees/s");
-    break;
-  case ICM20948_GYRO_RANGE_2000_DPS:
-    Serial.println("2000 degrees/s");
-    break;
-  }
 
   //  icm.setAccelRateDivisor(4095);
   uint16_t accel_divisor = icm.getAccelRateDivisor();
