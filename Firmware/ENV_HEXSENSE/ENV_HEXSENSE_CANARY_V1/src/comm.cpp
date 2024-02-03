@@ -11,6 +11,7 @@ uint32_t seq_num_i = 0;
 uint32_t crc_i     = 0;
 
 void lora_setup (void) {
+  // TODO: choose different frequency for different regions
   pinMode(LORA_EN_PIN, OUTPUT);
   digitalWrite(LORA_EN_PIN, HIGH);
   delay(500); // FZ: must add a delay to make sure the power is ready.
