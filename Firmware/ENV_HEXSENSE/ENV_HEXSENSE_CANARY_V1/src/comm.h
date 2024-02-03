@@ -23,3 +23,6 @@
 extern void lora_setup(void);
 extern void pack_package(void);
 
+extern void lora_sleep(void);
+extern void lora_idle(void);
+

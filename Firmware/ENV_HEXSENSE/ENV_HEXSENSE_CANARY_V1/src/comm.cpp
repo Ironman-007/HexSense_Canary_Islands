@@ -65,3 +65,10 @@ void pack_package(void) {
   send_data_to_lora(data_buffer, message_length);
 }
 
+void lora_sleep(void) {
+  LoRa.sleep();
+}
+
+void lora_idle(void) {
+  LoRa.idle();
+}

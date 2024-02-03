@@ -25,15 +25,17 @@ void setup () {
 void loop () {
   if (alarmMatched) {
     alarmMatched = false;
+    lora_sleep();
 
     read_bat_v();
 
     if (read_scd30()) {
       if (SERIAL_DEBUG) {
         Serial.println("Send data");
-      }
+      } 
       pack_package();
     }
+    lora_sleep();
     set_idle_level(LOW_POWER_LEVEL);
   }
 }

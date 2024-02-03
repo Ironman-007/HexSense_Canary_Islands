@@ -1973,8 +1973,8 @@
     (pin "4" (uuid 16413f60-ac0e-4aa3-97fa-3e15d77ac43d))
     (pin "5" (uuid bb93bada-0d44-4cad-bc9a-2c2d01a699cd))
     (pin "6" (uuid 0625df7f-31cd-48cb-a30a-387ac92286b3))
-    (pin "MP" (uuid 59fc3cbe-6c3f-4f64-838b-770474d28af1))
-    (pin "MP" (uuid 59fc3cbe-6c3f-4f64-838b-770474d28af1))
+    (pin "MP" (uuid 59fc3cbe-6c3f-4f64-838b-770474d28af2))
+    (pin "MP" (uuid 59fc3cbe-6c3f-4f64-838b-770474d28af2))
     (instances
       (project "LORA"
         (path "/65265907-6721-4f79-b3a8-f708d4e7460b"
@@ -2133,8 +2133,8 @@
     (pin "4" (uuid da9e694a-8407-4ebb-bc3f-d26048abc48e))
     (pin "5" (uuid 46b53469-d43f-4ff2-9566-114b7e22e0f4))
     (pin "6" (uuid f08fde5f-1bf0-42b7-b090-27edbc5d928a))
-    (pin "MP" (uuid 43ff9b81-29dd-4145-9dff-8287e4f1b299))
-    (pin "MP" (uuid 43ff9b81-29dd-4145-9dff-8287e4f1b299))
+    (pin "MP" (uuid 43ff9b81-29dd-4145-9dff-8287e4f1b29a))
+    (pin "MP" (uuid 43ff9b81-29dd-4145-9dff-8287e4f1b29a))
     (instances
       (project "LORA"
         (path "/65265907-6721-4f79-b3a8-f708d4e7460b"
