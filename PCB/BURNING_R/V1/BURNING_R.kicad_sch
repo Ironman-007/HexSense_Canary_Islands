@@ -2728,8 +2728,8 @@
     (pin "2" (uuid 51b25147-6788-4762-8dfc-8d2511d65a3d))
     (pin "3" (uuid 90557709-1bfb-4659-9295-734ecab0df91))
     (pin "4" (uuid 048e5274-6a30-491d-ba43-b16edc975746))
-    (pin "MP" (uuid 580a2c13-c519-406d-bdb4-2bcc720e7939))
-    (pin "MP" (uuid 580a2c13-c519-406d-bdb4-2bcc720e7939))
+    (pin "MP" (uuid 580a2c13-c519-406d-bdb4-2bcc720e793c))
+    (pin "MP" (uuid 580a2c13-c519-406d-bdb4-2bcc720e793c))
     (instances
       (project "BURNING_R"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -2805,7 +2805,7 @@
     (property "Reference" "R15" (at 117.602 165.608 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "1k" (at 121.412 165.608 90)
+    (property "Value" "10k" (at 121.412 165.608 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" (at 119.38 167.64 0)
@@ -2849,8 +2849,8 @@
     (pin "2" (uuid 714c387c-9066-4b4f-b1bc-5a8c095c991d))
     (pin "3" (uuid 60117840-c314-4d4e-93d2-50da1bcb4b4f))
     (pin "4" (uuid f768aabc-59a9-467f-8103-e879115affba))
-    (pin "MP" (uuid 80b64d33-0ee9-4f3c-997f-d1ef96778201))
-    (pin "MP" (uuid 80b64d33-0ee9-4f3c-997f-d1ef96778201))
+    (pin "MP" (uuid 80b64d33-0ee9-4f3c-997f-d1ef96778204))
+    (pin "MP" (uuid 80b64d33-0ee9-4f3c-997f-d1ef96778204))
     (instances
       (project "BURNING_R"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -2930,8 +2930,8 @@
     (pin "2" (uuid 9a566554-2031-4203-a94a-23947c161bac))
     (pin "3" (uuid 95597bd8-3d92-445f-928a-ae98e5225199))
     (pin "4" (uuid c690f108-fcd3-4642-999b-4537682552d8))
-    (pin "MP" (uuid 96fe639f-da68-420c-ad60-4eef4bbab780))
-    (pin "MP" (uuid 96fe639f-da68-420c-ad60-4eef4bbab780))
+    (pin "MP" (uuid 96fe639f-da68-420c-ad60-4eef4bbab783))
+    (pin "MP" (uuid 96fe639f-da68-420c-ad60-4eef4bbab783))
     (instances
       (project "BURNING_R"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -3266,8 +3266,8 @@
     (pin "2" (uuid 50fb6f4c-22f1-40fa-a980-b47f77a03e98))
     (pin "3" (uuid 04b75f9f-30c3-422f-bb59-480ec7c751fc))
     (pin "4" (uuid 4c0bf3c7-3a5b-4f9a-ad58-c7c198a8eb86))
-    (pin "MP" (uuid c81ec61a-49c4-41d8-a750-e9a80eaf1ffd))
-    (pin "MP" (uuid c81ec61a-49c4-41d8-a750-e9a80eaf1ffd))
+    (pin "MP" (uuid c81ec61a-49c4-41d8-a750-e9a80eaf2000))
+    (pin "MP" (uuid c81ec61a-49c4-41d8-a750-e9a80eaf2000))
     (instances
       (project "BURNING_R"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -3454,8 +3454,8 @@
     (pin "2" (uuid d63cf58b-c11f-4a37-9971-ad1a4b63907a))
     (pin "3" (uuid 29341c0d-90a7-48ae-af17-c87f53462d59))
     (pin "4" (uuid c22c989e-bc20-4f30-a89e-210e83bba55e))
-    (pin "MP" (uuid 97217fe6-0c75-4b69-a18a-289af916bf3d))
-    (pin "MP" (uuid 97217fe6-0c75-4b69-a18a-289af916bf3d))
+    (pin "MP" (uuid 97217fe6-0c75-4b69-a18a-289af916bf40))
+    (pin "MP" (uuid 97217fe6-0c75-4b69-a18a-289af916bf40))
     (instances
       (project "BURNING_R"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
@@ -4077,8 +4077,8 @@
     (pin "2" (uuid ac482dfa-8102-4c62-8e99-49c7b435157f))
     (pin "3" (uuid 5e259db0-a57b-4d17-9918-a26e3b30718f))
     (pin "4" (uuid 7d39cb97-d293-4794-9cfe-0889f334fae5))
-    (pin "MP" (uuid 60e264c0-898d-479d-9b9d-d2fba32efd8a))
-    (pin "MP" (uuid 60e264c0-898d-479d-9b9d-d2fba32efd8a))
+    (pin "MP" (uuid 60e264c0-898d-479d-9b9d-d2fba32efd8d))
+    (pin "MP" (uuid 60e264c0-898d-479d-9b9d-d2fba32efd8d))
     (instances
       (project "BURNING_R"
         (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"

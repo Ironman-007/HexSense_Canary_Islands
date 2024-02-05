@@ -1,39 +1,17 @@
 #include <Arduino.h>
 
-#include "system.h"
-#include "slow_control.h"
-#include "sensor_scd30.h"
-#include "comm.h"
+#include "HEX_IMU.h"
 
-void setup () {
-  if (SERIAL_DEBUG) {
-    Serial.begin(115200);
-    while (!Serial) {
-      delay(10);
-    }
-  }
+void setup(void) {
+  Serial.begin(115200);
+  while (!Serial)
+    delay(10); // will pause Zero, Leonardo, etc until serial console opens
 
-  if (SERIAL_DEBUG) {
-    Serial.println("Start");
-  }
-
-  RTC_setup();
-  lora_setup();
-  sensor_scd30_setup();
+  imu_setup();
 }
 
-void loop () {
-  if (alarmMatched) {
-    alarmMatched = false;
-    read_bat_v();
+void loop() {
+  read_imu();
 
-    if (read_scd30()) {
-      if (SERIAL_DEBUG) {
-        Serial.println("Send data");
-      }
-      pack_package();
-    }
-    lora_sleep();
-    set_idle_level(LOW_POWER_LEVEL);
-  }
+  delay(1000);
 }
