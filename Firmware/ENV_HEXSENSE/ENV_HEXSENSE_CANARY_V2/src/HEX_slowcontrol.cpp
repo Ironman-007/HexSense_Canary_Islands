@@ -40,9 +40,14 @@ uint8_t PIN_INDEX[BR_GPIO_CNT]      = {BR_CH1, BR_CH3, BR_CH4, BR_CH6};
 // bool    PIN_MODES[BR_GPIO_CNT]      = {GPIO_OUT, GPIO_OUT, GPIO_OUT, GPIO_OUT};
 // bool    PIN_INIT_VALUE[BR_GPIO_CNT] = {LOW, LOW, LOW, LOW};
 
-void BR_module_power_on (void) {
+static void BR_module_power_on (void) {
   pinMode(BR_DCDC_EN, OUTPUT);
   digitalWrite(BR_DCDC_EN, HIGH);
+  delay(100);
+}
+
+static void BR_module_power_off (void) {
+  digitalWrite(BR_DCDC_EN, LOW);
   delay(100);
 }
 
@@ -51,13 +56,6 @@ void BR_GPIO_init(void) {
 
   Wire.begin();
   BR_GPIO.begin(Wire, _TCA9534_ADDR);
-
-  // if (!BR_GPIO.begin(Wire, _TCA9534_ADDR)) {
-  //   if (SERIAL_DEBUG) {
-  //     Serial.println("TCA9534 not found");
-  //   }
-  //   delay(10);
-  // }
 
   for (iii = 0; iii < BR_GPIO_CNT; iii ++) {
     BR_GPIO.pinMode(PIN_INDEX[iii], GPIO_OUT);
@@ -72,10 +70,11 @@ void BR_TURN_OFF_ALL(void) {
 }
 
 void BR_BURN_R(uint8_t ch_num) {
-  BR_GPIO.digitalWrite(ch_num, HIGH);
   if (SERIAL_DEBUG) {
     Serial.print("Burning resistor: ");
     Serial.println(ch_num);
+  } else {
+    BR_GPIO.digitalWrite(ch_num, HIGH);
   }
 }
 
@@ -105,6 +104,9 @@ static void try2burn_R(uint8_t CH_num, int first_try, int second_try) {
     delay(second_try);
     BR_TURN_OFF_ALL();
   }
+
+  BR_module_power_off();
+  IMU_power_OFF();
 }
 
 void Burn_resistor(float orientation) {

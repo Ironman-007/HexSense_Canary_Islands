@@ -11,11 +11,18 @@ float acc_y = 0.0;
 float acc_z = 0.0;
 float body_orientation = 0.0;
 
-void imu_setup(void) {
+void IMU_power_ON(void) {
   pinMode(PIN_LED_TXL, OUTPUT);
   digitalWrite(PIN_LED_TXL, HIGH);
+  delay(100);
+}
 
-  // Wire.begin();
+void IMU_power_OFF(void) {
+  digitalWrite(PIN_LED_TXL, LOW);
+}
+
+void imu_setup(void) {
+  IMU_power_ON();
 
   // Try to initialize!
   if (!icm.begin_I2C()) {

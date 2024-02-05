@@ -13,6 +13,9 @@ extern float acc_y;
 extern float acc_z;
 extern float body_orientation;
 
+extern void IMU_power_ON(void);
+extern void IMU_power_OFF(void);
+
 extern void imu_setup(void);
 extern void read_imu(void);
 
