@@ -44,6 +44,11 @@ void FZ_ArduCAM_Mega::SetAutoWhiteBalanceMode(uint8_t val) {
   waitI2cIdle(); // Wait I2c Idle
 }
 
+void FZ_ArduCAM_Mega::SetWhiteBalanceMode(CAM_WHITE_BALANCE WB_mode) {
+  write_register(CAM_REG_WHILEBALANCE_MODE_CONTROL, WB_mode); // set Light Mode
+  waitI2cIdle();                                       // Wait I2c Idle
+}
+
 void FZ_ArduCAM_Mega::set_resolution(uint8_t resolution) {
   Serial.println("Setting resolution...");
   write_register(CAM_REG_CAPTURE_RESOLUTION, CAM_SET_CAPTURE_MODE | resolution);

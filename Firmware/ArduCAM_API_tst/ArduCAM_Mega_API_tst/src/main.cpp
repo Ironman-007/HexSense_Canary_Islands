@@ -8,14 +8,15 @@ CAM_IMAGE_MODE resolution = CAM_IMAGE_MODE_HD;
 CAM_IMAGE_PIX_FMT format  = CAM_IMAGE_PIX_FMT_JPG;
 
 void take_picture() {
-  mycamera.set_exporsure(10000);
-  // mycamera.setAutoExposure(1);
+  // mycamera.set_exporsure(10000);
+  mycamera.setAutoExposure(1);
   mycamera.SetAutoISOSensitive(1);
-  mycamera.SetAutoWhiteBalanceMode(1);
-  // mycamera.setAutoExposure(1);
+  mycamera.set_brightness(CAM_BRIGHTNESS_LEVEL_1);
+  // mycamera.SetAutoWhiteBalanceMode(1);
+  mycamera.SetWhiteBalanceMode(CAM_WHITE_BALANCE_MODE_OFFICE);
   mycamera.SetCapture();
 
-  delay(1000);
+  delay(100);
 }
 
 void setup() {
@@ -29,6 +30,7 @@ void setup() {
   mycamera.set_format(format);
   mycamera.set_resolution(resolution);
 
+  take_picture();
   take_picture();
   take_picture();
   take_picture();

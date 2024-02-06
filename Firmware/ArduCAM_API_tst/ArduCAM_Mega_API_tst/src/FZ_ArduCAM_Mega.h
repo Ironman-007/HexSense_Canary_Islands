@@ -156,6 +156,7 @@ public:
     void set_jpeg_quality(IMAGE_QUALITY quality);
     void SetAutoISOSensitive(uint8_t val);
     void SetAutoWhiteBalanceMode(uint8_t val);
+    void SetWhiteBalanceMode(CAM_WHITE_BALANCE WB_mode);
     void SetISOValue(int iso_val);
 
     uint32_t ReadFifoLength(void);
