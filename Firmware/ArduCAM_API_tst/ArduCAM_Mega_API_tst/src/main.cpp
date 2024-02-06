@@ -4,7 +4,7 @@
 
 FZ_ArduCAM_Mega mycamera;
 
-CAM_IMAGE_MODE resolution = CAM_IMAGE_MODE_HD;
+CAM_IMAGE_MODE resolution = CAM_IMAGE_MODE_SXGAM;
 CAM_IMAGE_PIX_FMT format  = CAM_IMAGE_PIX_FMT_JPG;
 
 void take_picture() {

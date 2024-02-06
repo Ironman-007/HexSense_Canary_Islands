@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+message Ant_tracking_data_frame {
+    int32 ID          = 1;
+    int32 time_stamp  = 2;
+    int32 seq_num     = 3;
+    float battery_v   = 4;
+    float encoder_cnt = 5;
+    float gyro_data   = 6;
+    int32 crc         = 7;
+}
+
+message Ant_IR_data_frame {
+    int32 ID          = 1;
+    int32 time_stamp  = 2;
+    int32 seq_num     = 3;
+    float battery_v   = 4;
+
+    bytes IR_data     = 5;
+
+    int32 crc         = 6;
+}
+
+message Ant_cmd_frame {
+    int32 ID     = 1;
+
+    enum cmd {
+        START = 0;
+        PING  = 1;
+    }
+
+    int32 crc    = 2;
+}
+
+message Ant_ack_frame {
+    int32  ID    = 1;
+
+    enum ack {
+        ACK = 0;
+        NCK = 1;
+    }
+
+    int32 crc    = 2;
+}
+
