@@ -35,6 +35,15 @@
 #define CAM_REG_MANUAL_EXPOSURE_BIT_15_8  0X34
 #define CAM_REG_MANUAL_EXPOSURE_BIT_7_0   0X35
 
+#define CAM_REG_IMAGE_QUALITY             0x2A
+
+#define SET_GAIN                          0X00
+
+#define CAM_SET_CAPTURE_MODE              (0 << 7)
+#define CAM_REG_WHILEBALANCE_MODE_CONTROL 0X26
+
+#define SET_WHILEBALANCE                  0X02
+
 /**
  * @enum CAM_IMAGE_MODE
  * @brief Configure camera resolution
@@ -89,7 +98,28 @@ typedef enum {
     CAM_BRIGHTNESS_LEVEL_4       = 7, /**<Level +4 */
 } CAM_BRIGHTNESS_LEVEL;
 
+/**
+ * @enum CAM_WHITE_BALANCE
+ * @brief Configure white balance mode
+ */
+typedef enum {
+    CAM_WHITE_BALANCE_MODE_DEFAULT = 0, /**< Auto */
+    CAM_WHITE_BALANCE_MODE_SUNNY,       /**< Sunny */
+    CAM_WHITE_BALANCE_MODE_OFFICE,      /**< Office */
+    CAM_WHITE_BALANCE_MODE_CLOUDY,      /**< Cloudy*/
+    CAM_WHITE_BALANCE_MODE_HOME,        /**< Home */
+} CAM_WHITE_BALANCE;
+
+typedef enum {
+    HIGH_QUALITY    = 0,
+    DEFAULT_QUALITY = 1,
+    LOW_QUALITY     = 2,
+} IMAGE_QUALITY;
+
 #define CAM_SENSOR_RESET_ENABLE (1 << 6)
+
+#define CAM_REG_MANUAL_GAIN_BIT_9_8 0X31
+#define CAM_REG_MANUAL_GAIN_BIT_7_0 0X32
 
 #define CAMERA_CS A5
 
@@ -123,6 +153,10 @@ public:
     void set_brightness(CAM_BRIGHTNESS_LEVEL brightness);
     void set_exporsure(uint32_t exposure_time);
     void setAutoExposure(uint8_t val);
+    void set_jpeg_quality(IMAGE_QUALITY quality);
+    void SetAutoISOSensitive(uint8_t val);
+    void SetAutoWhiteBalanceMode(uint8_t val);
+    void SetISOValue(int iso_val);
 
     uint32_t ReadFifoLength(void);
 

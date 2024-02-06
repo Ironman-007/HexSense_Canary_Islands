@@ -12,8 +12,11 @@
 #include "SPI.h"
 
 const int MEGA_CS = 7;
+
 Arducam_Mega myCAM(MEGA_CS);
+
 ArducamLink myUart;
+
 uint8_t temp             = 0xff;
 uint8_t sendFlag         = TRUE;
 uint8_t commandBuff[20]  = {0};

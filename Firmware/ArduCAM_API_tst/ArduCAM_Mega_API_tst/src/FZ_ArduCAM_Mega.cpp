@@ -34,9 +34,19 @@ void FZ_ArduCAM_Mega::set_format(uint8_t fmt) {
   Serial.println("Setting format done.");
 }
 
+void FZ_ArduCAM_Mega::SetAutoWhiteBalanceMode(uint8_t val) {
+  unsigned char symbol = 0;
+  if (val == 1) {
+      symbol |= 0x80;
+  }
+  symbol |= SET_WHILEBALANCE;
+  write_register(CAM_REG_EXPOSURE_GAIN_WHILEBALANCE_CONTROL, symbol);    // while balance control
+  waitI2cIdle(); // Wait I2c Idle
+}
+
 void FZ_ArduCAM_Mega::set_resolution(uint8_t resolution) {
   Serial.println("Setting resolution...");
-  write_register(CAM_REG_CAPTURE_RESOLUTION, resolution);
+  write_register(CAM_REG_CAPTURE_RESOLUTION, CAM_SET_CAPTURE_MODE | resolution);
   waitI2cIdle();
   Serial.println("Setting resolution done.");
 }
@@ -49,6 +59,8 @@ void FZ_ArduCAM_Mega::set_brightness(CAM_BRIGHTNESS_LEVEL brightness) {
 }
 
 void FZ_ArduCAM_Mega::setAutoExposure(uint8_t val) {
+  Serial.print("Setting auto exposure... to");
+  Serial.println(val);
   unsigned char symbol = 0;
   if (val == 1) {
       symbol |= 0x80;
@@ -70,8 +82,39 @@ void FZ_ArduCAM_Mega::set_exporsure(uint32_t exposure_time) {
   write_register(CAM_REG_MANUAL_EXPOSURE_BIT_7_0, (uint8_t)(exposure_time & 0xff));
   waitI2cIdle();
   Serial.println("Setting exposure done.");
+
+  // Serial.println(read_register(CAM_REG_MANUAL_EXPOSURE_BIT_19_16));
+  // Serial.println(read_register(CAM_REG_MANUAL_EXPOSURE_BIT_15_8));
+  // Serial.println(read_register(CAM_REG_MANUAL_EXPOSURE_BIT_7_0));
 }
 
+void FZ_ArduCAM_Mega::set_jpeg_quality(IMAGE_QUALITY quality) {
+  write_register(CAM_REG_IMAGE_QUALITY, quality);
+  waitI2cIdle(); // Wait I2c Idle
+}
+
+void FZ_ArduCAM_Mega::SetAutoISOSensitive(uint8_t val) {
+  unsigned char symbol = 0;
+    if (val == 1) {
+        symbol |= 0x80;
+    }
+    symbol |= SET_GAIN;
+    write_register(CAM_REG_EXPOSURE_GAIN_WHILEBALANCE_CONTROL, symbol);    // auto gain control
+    waitI2cIdle(); // Wait I2c Idle
+}
+
+uint8_t ov3640GainValue[] = {0x00, 0x10, 0x18, 0x30, 0x34, 0x38, 0x3b, 0x3f, 0x72, 0x74, 0x76,
+                             0x78, 0x7a, 0x7c, 0x7e, 0xf0, 0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6,
+                             0xf7, 0xf8, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff};
+
+void FZ_ArduCAM_Mega::SetISOValue(int iso_val) {
+    // iso_val = ov3640GainValue[iso_val - 1];
+
+    write_register(CAM_REG_MANUAL_GAIN_BIT_9_8, iso_val >> 8); // set AGC VALUE
+    waitI2cIdle();
+    write_register(CAM_REG_MANUAL_GAIN_BIT_7_0, iso_val & 0xff);
+    waitI2cIdle();
+}
 /*
 uint8_t cameraReadReg(ArducamCamera* camera, uint8_t addr)
 {
@@ -166,7 +209,7 @@ void FZ_ArduCAM_Mega::waitI2cIdle(void) {
 
 void FZ_ArduCAM_Mega::getpicture(void) {
   while (getTotalLength()){
-    read_buffer(NULL, this->_buffer_size);
+    read_buffer(NULL, 100);
     delay(100);
   }
 }
