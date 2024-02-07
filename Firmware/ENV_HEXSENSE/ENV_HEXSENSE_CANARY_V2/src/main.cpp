@@ -45,6 +45,8 @@ void setup(void) {
 void loop() {
   if (alarmMatched) {
     alarmMatched = false;
+
+    lora_idle();
     read_bat_v();
 
     if (read_scd30()) {

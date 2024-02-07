@@ -12,6 +12,8 @@
 
 extern volatile bool bleConnected;
 
+extern uint8_t cmd_buffer[100];
+
 // BLE Service
 extern BLEDfu  bledfu;  // OTA DFU service
 extern BLEDis  bledis;  // device information
@@ -32,16 +34,8 @@ extern void disconnect_callback(uint16_t conn_handle, uint8_t reason);
 
 extern void ble_setup(void);
 
-enum Ant_cmd_type {
-  Ant_cmd_type_none = 0,
-  Ant_cmd_type_motor,
-  Ant_cmd_type_led,
-  Ant_cmd_type_buzzer,
-  Ant_cmd_type_battery,
-  Ant_cmd_type_ota,
-  Ant_cmd_type_reset,
-  Ant_cmd_type_debug,
-  Ant_cmd_type_unknow
-};
+extern _CMD_RECV decodecmd(const uint8_t* data, size_t size);
 
-extern uint8_t decodecmd(const uint8_t* data, size_t size);
+extern _CMD_RECV get_recv_cmd(size_t size);
+
+extern void handle_cmd(_CMD_RECV cmd_recv);

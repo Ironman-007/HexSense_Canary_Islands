@@ -1,3 +1,5 @@
+// protoc --nanopb_out=. ant_canary.proto
+
 #include <Arduino.h>
 
 #include "comm.h"
@@ -15,8 +17,16 @@ void setup() {
 }
 
 void loop() {
-  if (bleuart.available()) {
-    int recv_len = bleuart.available();
-    output_debug_info_int("Received length: ", recv_len);
+  if (bleConnected) {
+    if (bleuart.available()) {
+      int recv_len = bleuart.available();
+      output_debug_info_int("Received length: ", recv_len);
+      _CMD_RECV cmd_recv = get_recv_cmd(recv_len);
+      handle_cmd(cmd_recv);
+    }
+  } else {
+    startAdv();
   }
 }
+
+

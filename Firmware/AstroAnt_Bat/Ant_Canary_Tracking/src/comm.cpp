@@ -1,8 +1,11 @@
 #include <Arduino.h>
 
 #include "comm.h"
+#include "system.h"
 
 volatile bool bleConnected = false;
+
+uint8_t cmd_buffer[100] = {0};
 
 BLEUart bleuart; // uart over ble
 
@@ -90,17 +93,64 @@ void ble_setup() {
   startAdv();
 }
 
-uint8_t decodecmd(const uint8_t* data, size_t size) {
+_CMD_RECV decodecmd(const uint8_t* data, size_t size) {
   Ant_cmd_frame Ant_cmd_frame_recv = Ant_cmd_frame_init_zero;
   pb_istream_t  stream_recv        = pb_istream_from_buffer(data, size);
 
-  for (unsigned int i = 0; i < size; i++) {
-    Serial.print(data[i], HEX);
-    Serial.print(" ");
+  if (SERIAL_DEBUG) {
+    Serial.println("Received cmd:");
+
+    for (unsigned int i = 0; i < size; i++) {
+      Serial.print(data[i], HEX);
+      Serial.print(" ");
+    }
   }
   Serial.println("");
 
   bool status = pb_decode(&stream_recv, Ant_cmd_frame_fields, &Ant_cmd_frame_recv);
 
+  if (!status) {
+    Serial.println("Decoding failed");
+    return CMD_RECV_INVAID;
+  }
 
+  return Ant_cmd_frame_recv.cmd_recv;
+}
+
+_CMD_RECV get_recv_cmd(size_t size) {
+  for (unsigned int i = 0; i < size; i++) {
+    cmd_buffer[i] = (uint8_t) bleuart.read();
+  }
+  _CMD_RECV cmd_recv = decodecmd(cmd_buffer, size);
+
+  Serial.print("Received cmd:");
+  Serial.println(cmd_recv);
+
+  return cmd_recv;
+}
+
+void handle_cmd(_CMD_RECV cmd_recv) {
+  if (cmd_recv == CMD_RECV_START) {
+    // TODO: start track moving 
+  }
+  if (cmd_recv == CMD_RECV_FORWARD) {
+    // TODO: send ack data back
+  }
+  if (cmd_recv == CMD_RECV_BACKWARD) {
+    // TODO: send ack data back
+  }
+  if (cmd_recv == CMD_RECV_TURN_L) {
+    // TODO: start track moving 
+  }
+  if (cmd_recv == CMD_RECV_TURN_R) {
+    // TODO: start track moving 
+  }
+  if (cmd_recv == CMD_RECV_PING) {
+    // TODO: send ack data back
+  }
+  if (cmd_recv == CMD_RECV_TAKEIR) {
+    // TODO: take IR image
+  }
+  if (cmd_recv == CMD_RECV_INVAID) {
+  }
 }
