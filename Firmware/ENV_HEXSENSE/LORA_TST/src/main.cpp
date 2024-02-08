@@ -13,31 +13,31 @@ void system_init(void) {
 
   if (!SERIAL_DEBUG) delay(WAIT_TIME);
 
-  system_pin_init();
+  // system_pin_init();
   imu_setup();
   RTC_setup();
   lora_setup();
-  sensor_scd30_setup();
-  BR_GPIO_init();
-  BR_TURN_OFF_ALL();
+  // sensor_scd30_setup();
+  // BR_GPIO_init();
+  // BR_TURN_OFF_ALL();
 
   // flash_led(50, 3);
 
-  calculate_orientation();
+  // calculate_orientation();
 
-  if (SERIAL_DEBUG) {
-    Serial.print("Orientation: ");
-    Serial.println(body_orientation);
-  }
+  // if (SERIAL_DEBUG) {
+  //   Serial.print("Orientation: ");
+  //   Serial.println(body_orientation);
+  // }
   // led_on();
-  Burn_resistor(body_orientation);
+  // Burn_resistor(body_orientation);
   // led_off();
 }
 
 void setup(void) {
   if (SERIAL_DEBUG) {
-    Serial.println("====== Start ======");
     system_init();
+    Serial.println("System init done");
   }
   else {
     while (check_5v()) { // if 5V exist, then do nothing.
@@ -48,19 +48,22 @@ void setup(void) {
 }
 
 void loop() {
+
   if (alarmMatched) {
     alarmMatched = false;
 
     lora_idle();
     read_bat_v();
 
-    if (read_scd30()) {
-      if (SERIAL_DEBUG) {
-        Serial.println("Send data");
-      }
-      pack_package();
-      // flash_led(10, 1);
-    }
+    pack_package();
+
+    // if (read_scd30()) {
+    //   if (SERIAL_DEBUG) {
+    //     Serial.println("Send data");
+    //   }
+    //   pack_package();
+    //   flash_led(100, 1);
+    // }
     lora_sleep();
     set_idle_level(LOW_POWER_LEVEL);
   }

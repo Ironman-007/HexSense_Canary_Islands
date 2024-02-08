@@ -32,6 +32,9 @@ void lora_setup (void) {
 void send_data_to_lora(uint8_t* buffer, size_t message_length) {
   LoRa.beginPacket();
   LoRa.write(buffer, message_length);
+  if (SERIAL_DEBUG) {
+    Serial.println("write");
+  }
   LoRa.endPacket();
 
   if (SERIAL_DEBUG) {
