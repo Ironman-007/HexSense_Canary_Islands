@@ -47,7 +47,7 @@ void setup() {
     case MLX90640_ADC_19BIT: Serial.println("19 bit"); break;
   }
 
-  mlx.setRefreshRate(MLX90640_2_HZ);
+  mlx.setRefreshRate(MLX90640_4_HZ);
   Serial.print("Current frame rate: ");
   mlx90640_refreshrate_t rate = mlx.getRefreshRate();
   switch (rate) {

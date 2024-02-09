@@ -17,6 +17,18 @@ void Serialsetup(void) {
   output_debug_info("Serial setup done");
 }
 
+void system_setup(void) {
+  pinMode(BAT_V_PIN, INPUT);
+
+  pinMode(MSG_LED_PIN, OUTPUT);
+  digitalWrite(MSG_LED_PIN, LOW);
+
+  pinMode(BLE_LED_PIN, OUTPUT);
+  digitalWrite(BLE_LED_PIN, LOW);
+
+  output_debug_info("System setup done");
+}
+
 void output_debug_info(const char *info) {
   if (SERIAL_DEBUG) Serial.println(info);
 }
@@ -32,6 +44,14 @@ void output_debug_info_float(const char *info, float value) {
   if (SERIAL_DEBUG) {
     Serial.print(info);
     Serial.println(value);
+  }
+}
+
+void flash_led(uint8_t pin, uint8_t times, uint16_t interval) {
+  for (uint8_t i = 0; i < times; i++) {
+    digitalWrite(pin, HIGH);
+    delay(interval);
+    digitalWrite(pin, LOW);
   }
 }
 

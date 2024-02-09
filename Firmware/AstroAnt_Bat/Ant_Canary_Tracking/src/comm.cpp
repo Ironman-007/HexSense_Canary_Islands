@@ -50,6 +50,8 @@ void connect_callback(uint16_t conn_handle) {
 
   char central_name[32] = { 0 };
   connection->getPeerName(central_name, sizeof(central_name));
+
+  digitalWrite(BLE_LED_PIN, HIGH);
 }
 
 /**
@@ -62,6 +64,8 @@ void disconnect_callback(uint16_t conn_handle, uint8_t reason) {
 
   (void) conn_handle;
   (void) reason;
+
+  digitalWrite(BLE_LED_PIN, LOW);
 }
 
 void ble_setup() {
@@ -121,12 +125,16 @@ _CMD_RECV get_recv_cmd(size_t size) {
   for (unsigned int i = 0; i < size; i++) {
     cmd_buffer[i] = (uint8_t) bleuart.read();
   }
-  _CMD_RECV cmd_recv = decodecmd(cmd_buffer, size);
 
-  Serial.print("Received cmd:");
-  Serial.println(cmd_recv);
+  flash_led(MSG_LED_PIN, 1, 50);
 
-  return cmd_recv;
+  // _CMD_RECV cmd_recv = decodecmd(cmd_buffer, size);
+
+  // Serial.print("Received cmd:");
+  // Serial.println(cmd_recv);
+
+  // return cmd_recv;
+  return CMD_RECV_INVAID;
 }
 
 void handle_cmd(_CMD_RECV cmd_recv) {

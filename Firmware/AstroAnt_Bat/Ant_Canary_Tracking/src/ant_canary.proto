@@ -1,24 +1,22 @@
 syntax = "proto3";
 
 message Ant_tracking_data_frame {
-  int32 ID          = 1;
-  int32 time_stamp  = 2;
-  int32 seq_num     = 3;
-  float battery_v   = 4;
-  float encoder_cnt = 5;
-  float gyro_data   = 6;
-  int32 crc         = 7;
+  int32 time_stamp  = 1;
+  int32 seq_num     = 2;
+  float battery_v   = 3;
+  float encoder_cnt = 4;
+  float gyro_data   = 5;
+  int32 crc         = 6;
 }
 
 message Ant_IR_data_frame {
-  int32 ID          = 1;
-  int32 time_stamp  = 2;
-  int32 seq_num     = 3;
-  float battery_v   = 4;
+  int32 time_stamp  = 1;
+  int32 seq_num     = 2;
+  float battery_v   = 3;
 
-  bytes IR_data     = 5;
+  float IR_data[24] = 4;
 
-  int32 crc         = 6;
+  int32 crc         = 5;
 }
 
 enum CMD_RECV {
