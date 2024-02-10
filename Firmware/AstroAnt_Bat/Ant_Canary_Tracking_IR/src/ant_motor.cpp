@@ -41,21 +41,35 @@ void motor_tst(int speed) {
   analogWrite(MOTOR_2_PIN_2, speed);
 }
 
-void move_forward(int speed) {
+void forward(int speed) {
   analogWrite(MOTOR_1_PIN_1, speed);
   analogWrite(MOTOR_1_PIN_2, 0);
   analogWrite(MOTOR_2_PIN_1, 0);
   analogWrite(MOTOR_2_PIN_2, speed);
 }
 
-void move_backward(int speed) {
+void backward(int speed) {
   analogWrite(MOTOR_1_PIN_1, 0);
   analogWrite(MOTOR_1_PIN_2, speed);
   analogWrite(MOTOR_2_PIN_1, speed);
   analogWrite(MOTOR_2_PIN_2, 0);
 }
 
-void motor_stop(void) {
+void right(int speed) {
+  analogWrite(MOTOR_1_PIN_1, speed);
+  analogWrite(MOTOR_1_PIN_2, 0);
+  analogWrite(MOTOR_2_PIN_1, speed);
+  analogWrite(MOTOR_2_PIN_2, 0);
+}
+
+void left(int speed) {
+  analogWrite(MOTOR_1_PIN_1, 0);
+  analogWrite(MOTOR_1_PIN_2, speed);
+  analogWrite(MOTOR_2_PIN_1, 0);
+  analogWrite(MOTOR_2_PIN_2, speed);
+}
+
+void stop(void) {
   analogWrite(MOTOR_1_PIN_1, 255);
   analogWrite(MOTOR_1_PIN_2, 255);
   analogWrite(MOTOR_2_PIN_1, 255);

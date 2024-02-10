@@ -2,10 +2,13 @@
 
 #include "comm.h"
 #include "system.h"
+#include "ant_canary_tracking.h"
 
 volatile bool bleConnected = false;
 
-uint8_t cmd_buffer[100] = {0};
+ANT_CANARY_RECV_CMD ant_canary_recv_cmd(CMD_RECV_INVAID, 0);
+
+uint8_t cmd_buffer[150] = {0};
 
 BLEUart bleuart; // uart over ble
 
@@ -84,7 +87,7 @@ void ble_setup() {
   //Bluefruit.setName(getMcuUniqueID()); // useful testing with multiple central connections
   Bluefruit.Periph.setConnectCallback(connect_callback);
   Bluefruit.Periph.setDisconnectCallback(disconnect_callback);
-  Bluefruit.setName("AstroAnt-Lanzarote");
+  Bluefruit.setName(ANT_NAME);
 
   // Configure and Start BLE Uart Service
   bleuart.begin();
@@ -95,7 +98,7 @@ void ble_setup() {
   flash_led(MSG_LED_PIN, 3, 100);
 }
 
-_CMD_RECV decodecmd(const uint8_t* data, size_t size) {
+int decodecmd(const uint8_t* data, size_t size) {
   Ant_cmd_frame Ant_cmd_frame_recv = Ant_cmd_frame_init_zero;
   pb_istream_t  stream_recv        = pb_istream_from_buffer(data, size);
 
@@ -113,51 +116,111 @@ _CMD_RECV decodecmd(const uint8_t* data, size_t size) {
 
   if (!status) {
     Serial.println("Decoding failed");
-    return CMD_RECV_INVAID;
+    return 0;
   }
 
-  return Ant_cmd_frame_recv.cmd_recv;
+  ant_canary_recv_cmd.recv_cmd  = Ant_cmd_frame_recv.cmd_recv;
+  ant_canary_recv_cmd.parameter = Ant_cmd_frame_recv.dis_ang;
+
+  return 1;
 }
 
-_CMD_RECV get_recv_cmd(size_t size) {
+int get_recv_cmd(size_t size) {
   for (unsigned int i = 0; i < size; i++) {
     cmd_buffer[i] = (uint8_t) bleuart.read();
   }
 
   flash_led(MSG_LED_PIN, 1, 50);
 
-  // _CMD_RECV cmd_recv = decodecmd(cmd_buffer, size);
+  if (!decodecmd(cmd_buffer, size)) {
+    flash_led(MSG_LED_PIN, 3, 50);
+  }
 
-  // Serial.print("Received cmd:");
-  // Serial.println(cmd_recv);
+  if (SERIAL_DEBUG) {
+    Serial.print("Received cmd:");
+    Serial.println(ant_canary_recv_cmd.recv_cmd);
+  }
 
-  // return cmd_recv;
-  return CMD_RECV_INVAID;
+  return 1;
+  // return CMD_RECV_INVAID;
 }
 
-void handle_cmd(_CMD_RECV cmd_recv) {
-  if (cmd_recv == CMD_RECV_START) {
-    // TODO: start track moving 
+void send_ack(_CMD_RECV cmd_recv, _ACK2SEND ack2send) {
+  Ant_ack_frame Ant_ack_frame_send = Ant_ack_frame_init_zero;
+  pb_ostream_t stream_send = pb_ostream_from_buffer(cmd_buffer, sizeof(cmd_buffer));
+
+  Ant_ack_frame_send.cmd_recv = cmd_recv;
+  Ant_ack_frame_send.ack2send = ack2send;
+  Ant_ack_frame_send.crc      = cmd_recv + ack2send;
+
+  bool status = pb_encode(&stream_send, Ant_ack_frame_fields, &Ant_ack_frame_send);
+
+  if (SERIAL_DEBUG) {
+    if (!status) {
+      Serial.println("Encoding failed");
+      return;
+    }
   }
-  if (cmd_recv == CMD_RECV_FORWARD) {
+
+  if (SERIAL_DEBUG) {
+    Serial.println("Sending ack:");
+    for (unsigned int i = 0; i < stream_send.bytes_written; i++) {
+      Serial.print(cmd_buffer[i], HEX);
+      Serial.print(" ");
+    }
+    Serial.println("");
+  }
+
+  bleuart.write(cmd_buffer, stream_send.bytes_written);
+  flash_led(MSG_LED_PIN, 1, 50);
+}
+
+void handle_cmd(ANT_CANARY_RECV_CMD * cmd_recv) {
+  if (cmd_recv->recv_cmd == CMD_RECV_START) {
+    // TODO: start track moving
+    flash_led(MSG_LED_PIN, 1, 50);
+    send_ack(CMD_RECV_START, ACK2SEND_ACK);
+    start_track_moving();
+  }
+  if (cmd_recv->recv_cmd == CMD_RECV_FORWARD) {
     // TODO: send ack data back
+    flash_led(MSG_LED_PIN, 1, 50);
+    send_ack(CMD_RECV_FORWARD, ACK2SEND_ACK);
+    move_forward(cmd_recv->parameter);
   }
-  if (cmd_recv == CMD_RECV_BACKWARD) {
+  if (cmd_recv->recv_cmd == CMD_RECV_BACKWARD) {
     // TODO: send ack data back
+    flash_led(MSG_LED_PIN, 1, 50);
+    send_ack(CMD_RECV_BACKWARD, ACK2SEND_ACK);
+    move_backward(cmd_recv->parameter);
   }
-  if (cmd_recv == CMD_RECV_TURN_L) {
-    // TODO: start track moving 
+  if (cmd_recv->recv_cmd == CMD_RECV_TURN_L) {
+    // TODO: start track moving
+    flash_led(MSG_LED_PIN, 1, 50);
+    send_ack(CMD_RECV_TURN_L, ACK2SEND_ACK);
+    turn_left(cmd_recv->parameter);
   }
-  if (cmd_recv == CMD_RECV_TURN_R) {
-    // TODO: start track moving 
+  if (cmd_recv->recv_cmd == CMD_RECV_TURN_R) {
+    // TODO: start track moving
+    flash_led(MSG_LED_PIN, 1, 50);
+    send_ack(CMD_RECV_TURN_R, ACK2SEND_ACK);
+    turn_right(cmd_recv->parameter);
   }
-  if (cmd_recv == CMD_RECV_PING) {
+  if (cmd_recv->recv_cmd == CMD_RECV_PING) {
     // TODO: send ack data back
+    flash_led(MSG_LED_PIN, 1, 50);
+    send_ack(CMD_RECV_PING, ACK2SEND_ACK);
+    // ping_ack();
   }
-  if (cmd_recv == CMD_RECV_TAKEIR) {
+  if (cmd_recv->recv_cmd == CMD_RECV_TAKEIR) {
     // TODO: take IR image
+    flash_led(MSG_LED_PIN, 1, 50);
+    send_ack(CMD_RECV_TAKEIR, ACK2SEND_ACK);
+    // take_ir_image();
   }
-  if (cmd_recv == CMD_RECV_INVAID) {
-    flash_led(MSG_LED_PIN, 3, 100);
+  if (cmd_recv->recv_cmd == CMD_RECV_INVAID) {
+    flash_led(MSG_LED_PIN, 3, 50);
+    send_ack(CMD_RECV_INVAID, ACK2SEND_NCK);
+    turn_right(10);
   }
 }

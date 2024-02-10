@@ -54,6 +54,7 @@ void flash_led(uint8_t pin, uint8_t times, uint16_t interval) {
     digitalWrite(pin, HIGH);
     delay(interval);
     digitalWrite(pin, LOW);
+    delay(interval);
   }
 }
 
