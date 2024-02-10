@@ -3,6 +3,7 @@
 #include "comm.h"
 #include "system.h"
 #include "ant_canary_tracking.h"
+#include "ant_canary_IR.h"
 
 volatile bool bleConnected = false;
 
@@ -10,6 +11,7 @@ ANT_CANARY_RECV_CMD ant_canary_recv_cmd(CMD_RECV_INVAID, 0);
 
 uint8_t cmd_buffer[150] = {0};
 uint8_t ping_buffer[150] = {0};
+uint8_t IR_buffer[200] = {0};
 
 uint32_t seq_num_i = 0;
 
@@ -179,6 +181,8 @@ void send_ack(_CMD_RECV cmd_recv, _ACK2SEND ack2send) {
 }
 
 void handle_cmd(ANT_CANARY_RECV_CMD * cmd_recv) {
+  seq_num_i = 0;
+
   if (cmd_recv->recv_cmd == CMD_RECV_START) {
     // TODO: start track moving
     flash_led(MSG_LED_PIN, 1, 50);
@@ -219,11 +223,12 @@ void handle_cmd(ANT_CANARY_RECV_CMD * cmd_recv) {
     // TODO: take IR image
     flash_led(MSG_LED_PIN, 1, 50);
     send_ack(CMD_RECV_TAKEIR, ACK2SEND_ACK);
-    // take_ir_image();
+    take_ir_image();
   }
   if (cmd_recv->recv_cmd == CMD_RECV_INVAID) {
     flash_led(MSG_LED_PIN, 3, 50);
     send_ack(CMD_RECV_INVAID, ACK2SEND_NCK);
+    take_ir_image();
     // start_track_moving();
     // ping_ack();
   }
@@ -272,4 +277,36 @@ void ping_ack(void) {
   seq_num_i++;
 
   bleuart.write(ping_buffer, message_length);
+}
+
+void IR_ack(void) {
+  // send data colum by colum
+  for (uint8_t w=0; w<32; w++) {
+    Ant_IR_data_frame IR_data_frame = Ant_IR_data_frame_init_zero;
+    pb_ostream_t   stream           = pb_ostream_from_buffer(IR_buffer, sizeof(IR_buffer));
+
+    IR_data_frame.ID      = ANT_ID;
+    IR_data_frame.seq_num = seq_num_i;
+
+    int32_t crc_i = IR_data_frame.ID + IR_data_frame.seq_num;
+
+    for (uint8_t h=0; h<24; h++) {
+      float temp = mlx90640To[h*32 + w];
+      crc_i += temp;
+
+      // TODO: how to set value to repeated field?
+      // IR_data_frame.IR_data[h] = &mlx90640To[h*32 + w];
+    }
+
+    IR_data_frame.crc = crc_i;
+
+    pb_encode(&stream, Ant_IR_data_frame_fields, &IR_data_frame);
+    size_t message_length = stream.bytes_written;
+
+    // output_debug_info_int("IR message_length: ", message_length);
+
+    seq_num_i++;
+
+    bleuart.write(ping_buffer, message_length);
+  }
 }

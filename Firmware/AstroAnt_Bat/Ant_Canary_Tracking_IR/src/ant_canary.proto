@@ -12,12 +12,11 @@ message Ant_tracking_data_frame {
 
 message Ant_IR_data_frame {
   int32 ID               = 1;
-  int32 time_stamp       = 2;
-  int32 seq_num          = 3;
+  int32 seq_num          = 2;
 
-  repeated float IR_data = 4;
+  repeated float IR_data = 3;
 
-  int32 crc              = 5;
+  int32 crc              = 27;
 }
 
 enum CMD_RECV {

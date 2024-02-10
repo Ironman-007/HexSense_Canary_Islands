@@ -6,6 +6,7 @@
 #include "ant_motor.h"
 #include "system.h"
 #include "ant_canary_tracking.h"
+#include "ant_canary_IR.h"
 
 #include "NRF52TimerInterrupt.h"
 #include "NRF52_ISR_Timer.h"
@@ -38,6 +39,7 @@ void setup() {
   motor_setup();
   ble_setup();
   interrupt_setup();
+  IR_setup();
 
   startAdv();
 }

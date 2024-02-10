@@ -56,3 +56,4 @@ extern void send_ack(_CMD_RECV cmd_recv, _ACK2SEND ack2send);
 extern ANT_CANARY_RECV_CMD ant_canary_recv_cmd;
 
 extern void ping_ack(void);
+extern void IR_ack(void);
