@@ -177,7 +177,7 @@ void send_ack(_CMD_RECV cmd_recv, _ACK2SEND ack2send) {
   }
 
   bleuart.write(cmd_buffer, stream_send.bytes_written);
-  flash_led(MSG_LED_PIN, 1, 50);
+  flash_led(MSG_LED_PIN, 1, 100);
 }
 
 void handle_cmd(ANT_CANARY_RECV_CMD * cmd_recv) {
@@ -228,7 +228,7 @@ void handle_cmd(ANT_CANARY_RECV_CMD * cmd_recv) {
   if (cmd_recv->recv_cmd == CMD_RECV_INVAID) {
     flash_led(MSG_LED_PIN, 3, 50);
     send_ack(CMD_RECV_INVAID, ACK2SEND_NCK);
-    take_ir_image();
+    // take_ir_image();
     // start_track_moving();
     // ping_ack();
   }
@@ -290,23 +290,72 @@ void IR_ack(void) {
 
     int32_t crc_i = IR_data_frame.ID + IR_data_frame.seq_num;
 
-    for (uint8_t h=0; h<24; h++) {
-      float temp = mlx90640To[h*32 + w];
-      crc_i += temp;
+    IR_data_frame.IR_data_1 = mlx90640To[w + 0*32];
+    crc_i += IR_data_frame.IR_data_1;
+    IR_data_frame.IR_data_2 = mlx90640To[w + 1*32];
+    crc_i += IR_data_frame.IR_data_2;
+    IR_data_frame.IR_data_3 = mlx90640To[w + 2*32];
+    crc_i += IR_data_frame.IR_data_3;
+    IR_data_frame.IR_data_4 = mlx90640To[w + 3*32];
+    crc_i += IR_data_frame.IR_data_4;
+    IR_data_frame.IR_data_5 = mlx90640To[w + 4*32];
+    crc_i += IR_data_frame.IR_data_5;
+    IR_data_frame.IR_data_6 = mlx90640To[w + 5*32];
+    crc_i += IR_data_frame.IR_data_6;
+    IR_data_frame.IR_data_7 = mlx90640To[w + 6*32];
+    crc_i += IR_data_frame.IR_data_7;
+    IR_data_frame.IR_data_8 = mlx90640To[w + 7*32];
+    crc_i += IR_data_frame.IR_data_8;
+    IR_data_frame.IR_data_9 = mlx90640To[w + 8*32];
+    crc_i += IR_data_frame.IR_data_9;
+    IR_data_frame.IR_data_10 = mlx90640To[w + 9*32];
+    crc_i += IR_data_frame.IR_data_10;
+    IR_data_frame.IR_data_11 = mlx90640To[w + 10*32];
+    crc_i += IR_data_frame.IR_data_11;
+    IR_data_frame.IR_data_12 = mlx90640To[w + 11*32];
+    crc_i += IR_data_frame.IR_data_12;
+    IR_data_frame.IR_data_13 = mlx90640To[w + 12*32];
+    crc_i += IR_data_frame.IR_data_13;
+    IR_data_frame.IR_data_14 = mlx90640To[w + 13*32];
+    crc_i += IR_data_frame.IR_data_14;
+    IR_data_frame.IR_data_15 = mlx90640To[w + 14*32];
+    crc_i += IR_data_frame.IR_data_15;
+    IR_data_frame.IR_data_16 = mlx90640To[w + 15*32];
+    crc_i += IR_data_frame.IR_data_16;
+    IR_data_frame.IR_data_17 = mlx90640To[w + 16*32];
+    crc_i += IR_data_frame.IR_data_17;
+    IR_data_frame.IR_data_18 = mlx90640To[w + 17*32];
+    crc_i += IR_data_frame.IR_data_18;
+    IR_data_frame.IR_data_19 = mlx90640To[w + 18*32];
+    crc_i += IR_data_frame.IR_data_19;
+    IR_data_frame.IR_data_20 = mlx90640To[w + 19*32];
+    crc_i += IR_data_frame.IR_data_20;
+    IR_data_frame.IR_data_21 = mlx90640To[w + 20*32];
+    crc_i += IR_data_frame.IR_data_21;
+    IR_data_frame.IR_data_22 = mlx90640To[w + 21*32];
+    crc_i += IR_data_frame.IR_data_22;
+    IR_data_frame.IR_data_23 = mlx90640To[w + 22*32];
+    crc_i += IR_data_frame.IR_data_23;
+    IR_data_frame.IR_data_24 = mlx90640To[w + 23*32];
+    crc_i += IR_data_frame.IR_data_24;
 
-      // TODO: how to set value to repeated field?
-      // IR_data_frame.IR_data[h] = &mlx90640To[h*32 + w];
-    }
+    // for (uint8_t h=0; h<24; h++) {
+    //   float temp = mlx90640To[h*32 + w];
+    //   crc_i += temp;
+
+    //   // TODO: how to set value to repeated field?
+    //   // IR_data_frame.IR_data[h] = &mlx90640To[h*32 + w];
+    // }
 
     IR_data_frame.crc = crc_i;
 
     pb_encode(&stream, Ant_IR_data_frame_fields, &IR_data_frame);
     size_t message_length = stream.bytes_written;
 
-    // output_debug_info_int("IR message_length: ", message_length);
+    output_debug_info_int("IR message_length: ", message_length);
 
     seq_num_i++;
 
-    bleuart.write(ping_buffer, message_length);
+    bleuart.write(IR_buffer, message_length);
   }
 }
