@@ -224,7 +224,7 @@ void handle_cmd(ANT_CANARY_RECV_CMD * cmd_recv) {
   if (cmd_recv->recv_cmd == CMD_RECV_INVAID) {
     flash_led(MSG_LED_PIN, 3, 50);
     send_ack(CMD_RECV_INVAID, ACK2SEND_NCK);
-    start_track_moving();
+    // start_track_moving();
     // ping_ack();
   }
 }
