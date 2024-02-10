@@ -13,6 +13,9 @@
 extern volatile bool bleConnected;
 
 extern uint8_t cmd_buffer[150];
+extern uint8_t ping_buffer[150];
+
+extern uint32_t seq_num_i;
 
 class ANT_CANARY_RECV_CMD {
   public:
@@ -51,3 +54,5 @@ extern void handle_cmd(ANT_CANARY_RECV_CMD * cmd_recv);
 extern void send_ack(_CMD_RECV cmd_recv, _ACK2SEND ack2send);
 
 extern ANT_CANARY_RECV_CMD ant_canary_recv_cmd;
+
+extern void ping_ack(void);

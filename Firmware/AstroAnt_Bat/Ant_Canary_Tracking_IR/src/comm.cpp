@@ -9,6 +9,9 @@ volatile bool bleConnected = false;
 ANT_CANARY_RECV_CMD ant_canary_recv_cmd(CMD_RECV_INVAID, 0);
 
 uint8_t cmd_buffer[150] = {0};
+uint8_t ping_buffer[150] = {0};
+
+uint32_t seq_num_i = 0;
 
 BLEUart bleuart; // uart over ble
 
@@ -210,7 +213,7 @@ void handle_cmd(ANT_CANARY_RECV_CMD * cmd_recv) {
     // TODO: send ack data back
     flash_led(MSG_LED_PIN, 1, 50);
     send_ack(CMD_RECV_PING, ACK2SEND_ACK);
-    // ping_ack();
+    ping_ack();
   }
   if (cmd_recv->recv_cmd == CMD_RECV_TAKEIR) {
     // TODO: take IR image
@@ -221,6 +224,52 @@ void handle_cmd(ANT_CANARY_RECV_CMD * cmd_recv) {
   if (cmd_recv->recv_cmd == CMD_RECV_INVAID) {
     flash_led(MSG_LED_PIN, 3, 50);
     send_ack(CMD_RECV_INVAID, ACK2SEND_NCK);
-    turn_right(10);
+    start_track_moving();
+    // ping_ack();
   }
+}
+
+float get_gyro_data() {
+  mpu.getEvent(&mpu_a, &mpu_g, &mpu_temp);
+
+  return mpu_g.gyro.z;
+}
+
+void ping_ack(void) {
+  Ant_tracking_data_frame tracking_data_frame = Ant_tracking_data_frame_init_zero;
+  pb_ostream_t   stream         = pb_ostream_from_buffer(ping_buffer, sizeof(ping_buffer));
+
+  tracking_data_frame.ID          = ANT_ID;
+  tracking_data_frame.time_stamp  = millis();
+  tracking_data_frame.seq_num     = seq_num_i;
+
+  tracking_data_frame.battery_v   = read_bat_V();
+  tracking_data_frame.encoder_cnt = encoder1Counter/256;
+  tracking_data_frame.gyro_data   = get_gyro_data() - gyro_z_bias;
+
+  int32_t crc_i = tracking_data_frame.ID
+                + tracking_data_frame.time_stamp
+                + tracking_data_frame.seq_num
+                + tracking_data_frame.battery_v
+                + tracking_data_frame.encoder_cnt
+                + tracking_data_frame.gyro_data;
+
+  tracking_data_frame.crc         = crc_i;
+
+  pb_encode(&stream, Ant_tracking_data_frame_fields, &tracking_data_frame);
+  size_t message_length = stream.bytes_written;
+
+  if (SERIAL_DEBUG) {
+    Serial.print("message_length: ");
+    Serial.println(message_length);
+    // print the whole data_buffer
+    for (size_t i = 0; i < message_length; i++) {
+      Serial.print(ping_buffer[i], HEX);
+      Serial.print(" ");
+    }
+  }
+
+  seq_num_i++;
+
+  bleuart.write(ping_buffer, message_length);
 }

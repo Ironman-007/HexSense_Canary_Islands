@@ -59,7 +59,7 @@ void flash_led(uint8_t pin, uint8_t times, uint16_t interval) {
 }
 
 uint32_t read_bat_V(void) {
- return analogRead(BAT_V_PIN);
+  return analogRead(BAT_V_PIN);
 }
 
 #ifdef __cplusplus

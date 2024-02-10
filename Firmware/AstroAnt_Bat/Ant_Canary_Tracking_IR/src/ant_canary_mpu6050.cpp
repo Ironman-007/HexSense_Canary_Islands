@@ -42,6 +42,7 @@ void IMU_setup() {
 
 // IMU calibration - Gyroscope calibration
 void IMU_cali(void) {
+  digitalWrite(MSG_LED_PIN, HIGH);
   imu_cali_num = CALI_CNT;
 
   gyro_z_sum = 0;
@@ -67,6 +68,8 @@ void IMU_cali(void) {
   gyro_z_bias = gyro_z_sum/CALI_CNT;
 
   output_debug_info_float("Gyroscope bias: ", gyro_z_bias);
+
+  digitalWrite(MSG_LED_PIN, LOW);
 }
 
 #ifdef __cplusplus
