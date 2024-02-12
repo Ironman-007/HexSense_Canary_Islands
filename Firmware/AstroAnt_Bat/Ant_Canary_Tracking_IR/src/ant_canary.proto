@@ -65,10 +65,9 @@ enum ACK2SEND {
 }
 
 message Ant_ack_frame {
-  int32 ID          = 1;
-  CMD_RECV cmd_recv = 2;
-  ACK2SEND ack2send = 3;
-  int32    crc      = 4;
+  CMD_RECV cmd_recv = 1;
+  ACK2SEND ack2send = 2;
+  int32    crc      = 3;
 }
 
 

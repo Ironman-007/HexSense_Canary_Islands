@@ -74,7 +74,6 @@ typedef struct _Ant_cmd_frame {
 } Ant_cmd_frame;
 
 typedef struct _Ant_ack_frame {
-    int32_t ID;
     CMD_RECV cmd_recv;
     ACK2SEND ack2send;
     int32_t crc;
@@ -106,11 +105,11 @@ extern "C" {
 #define Ant_tracking_data_frame_init_default     {0, 0, 0, 0, 0, 0, 0}
 #define Ant_IR_data_frame_init_default           {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 #define Ant_cmd_frame_init_default               {_CMD_RECV_MIN, 0, 0}
-#define Ant_ack_frame_init_default               {0, _CMD_RECV_MIN, _ACK2SEND_MIN, 0}
+#define Ant_ack_frame_init_default               {_CMD_RECV_MIN, _ACK2SEND_MIN, 0}
 #define Ant_tracking_data_frame_init_zero        {0, 0, 0, 0, 0, 0, 0}
 #define Ant_IR_data_frame_init_zero              {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 #define Ant_cmd_frame_init_zero                  {_CMD_RECV_MIN, 0, 0}
-#define Ant_ack_frame_init_zero                  {0, _CMD_RECV_MIN, _ACK2SEND_MIN, 0}
+#define Ant_ack_frame_init_zero                  {_CMD_RECV_MIN, _ACK2SEND_MIN, 0}
 
 /* Field tags (for use in manual encoding/decoding) */
 #define Ant_tracking_data_frame_ID_tag           1
@@ -150,10 +149,9 @@ extern "C" {
 #define Ant_cmd_frame_cmd_recv_tag               1
 #define Ant_cmd_frame_dis_ang_tag                2
 #define Ant_cmd_frame_crc_tag                    3
-#define Ant_ack_frame_ID_tag                     1
-#define Ant_ack_frame_cmd_recv_tag               2
-#define Ant_ack_frame_ack2send_tag               3
-#define Ant_ack_frame_crc_tag                    4
+#define Ant_ack_frame_cmd_recv_tag               1
+#define Ant_ack_frame_ack2send_tag               2
+#define Ant_ack_frame_crc_tag                    3
 
 /* Struct field encoding specification for nanopb */
 #define Ant_tracking_data_frame_FIELDLIST(X, a) \
@@ -206,10 +204,9 @@ X(a, STATIC,   SINGULAR, INT32,    crc,               3)
 #define Ant_cmd_frame_DEFAULT NULL
 
 #define Ant_ack_frame_FIELDLIST(X, a) \
-X(a, STATIC,   SINGULAR, INT32,    ID,                1) \
-X(a, STATIC,   SINGULAR, UENUM,    cmd_recv,          2) \
-X(a, STATIC,   SINGULAR, UENUM,    ack2send,          3) \
-X(a, STATIC,   SINGULAR, INT32,    crc,               4)
+X(a, STATIC,   SINGULAR, UENUM,    cmd_recv,          1) \
+X(a, STATIC,   SINGULAR, UENUM,    ack2send,          2) \
+X(a, STATIC,   SINGULAR, INT32,    crc,               3)
 #define Ant_ack_frame_CALLBACK NULL
 #define Ant_ack_frame_DEFAULT NULL
 
@@ -227,7 +224,7 @@ extern const pb_msgdesc_t Ant_ack_frame_msg;
 /* Maximum encoded size of messages (where known) */
 #define ANT_CANARY_PB_H_MAX_SIZE                 Ant_IR_data_frame_size
 #define Ant_IR_data_frame_size                   165
-#define Ant_ack_frame_size                       26
+#define Ant_ack_frame_size                       15
 #define Ant_cmd_frame_size                       24
 #define Ant_tracking_data_frame_size             71
 
