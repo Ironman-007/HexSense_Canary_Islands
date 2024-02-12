@@ -52,8 +52,6 @@ void connect_callback(uint16_t conn_handle) {
   BLEConnection* connection = Bluefruit.Connection(conn_handle);
 
   connection->requestDataLengthUpdate();
-
-  // request mtu exchange
   connection->requestMtuExchange(200);
 
   char central_name[32] = { 0 };

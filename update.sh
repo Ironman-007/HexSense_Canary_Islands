@@ -1,5 +1,5 @@
 git pull
 git status
 git add --all
-git commit -a -m "Added Central firmware for Ant"
+git commit -a -m "Ant Central works"
 git push

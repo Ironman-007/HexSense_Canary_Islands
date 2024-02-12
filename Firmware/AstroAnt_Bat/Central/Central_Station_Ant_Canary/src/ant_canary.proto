@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+message Ant_tracking_data_frame {
+  int32 ID          = 1;
+  int32 time_stamp  = 2;
+  int32 seq_num     = 3;
+  int32 battery_v   = 4;
+  int32 encoder_cnt = 5;
+  float gyro_data   = 6;
+  int32 crc         = 7;
+}
+
+message Ant_IR_data_frame {
+  int32 ID        = 1;
+  int32 seq_num   = 2;
+
+  float IR_data_1 = 3;
+  float IR_data_2 = 4;
+  float IR_data_3 = 5;
+  float IR_data_4 = 6;
+  float IR_data_5 = 7;
+  float IR_data_6 = 8;
+  float IR_data_7 = 9;
+  float IR_data_8 = 10;
+  float IR_data_9 = 11;
+  float IR_data_10 = 12;
+  float IR_data_11 = 13;
+  float IR_data_12 = 14;
+  float IR_data_13 = 15;
+  float IR_data_14 = 16;
+  float IR_data_15 = 17;
+  float IR_data_16 = 18;
+  float IR_data_17 = 19;
+  float IR_data_18 = 20;
+  float IR_data_19 = 21;
+  float IR_data_20 = 22;
+  float IR_data_21 = 23;
+  float IR_data_22 = 24;
+  float IR_data_23 = 25;
+  float IR_data_24 = 26;
+
+  int32 crc        = 27;
+}
+
+enum CMD_RECV {
+  START    = 0;
+  FORWARD  = 1;
+  BACKWARD = 2;
+  TURN_L   = 3;
+  TURN_R   = 4;
+  PING     = 5;
+  TAKEIR   = 6;
+  INVAID   = 7;
+}
+
+message Ant_cmd_frame {
+  CMD_RECV cmd_recv = 1;
+  int32    dis_ang  = 2;
+  int32    crc      = 3;
+}
+
+enum ACK2SEND {
+  ACK = 0;
+  NCK = 1;
+}
+
+message Ant_ack_frame {
+  int32 ID          = 1;
+  CMD_RECV cmd_recv = 2;
+  ACK2SEND ack2send = 3;
+  int32    crc      = 4;
+}
+
+
