@@ -7,13 +7,13 @@ extern "C"
 {
 #endif // __cplusplus
 
-#define ANT_ID 2
+#define ANT_ID 0
 
 #define TIMER_INTERVAL_100ms 100L
 
 extern volatile bool timer4Interrupt_100ms;
 
-#define ANT_NAME     "AntCanary - #2"
+#define ANT_NAME     "AntCanary - #0"
 
 #define BAT_V_PIN    A0
 
