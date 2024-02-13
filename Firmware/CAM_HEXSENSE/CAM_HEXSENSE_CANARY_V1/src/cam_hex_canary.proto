@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+message CAM_HEX_camera_data_frame {
+  int32 seq_num  = 1;
+
+  bytes CAM_data = 2;
+
+  int32 crc      = 3;
+}
+
+enum CMD_RECV {
+  START = 0;
+  AGAIN = 1;
+}
+
+message CAM_HEX_cmd_frame {
+  CMD_RECV cmd_recv = 1;
+  int32    crc      = 2;
+}
+
+enum ACK2SEND {
+  ACK = 0;
+  NCK = 1;
+}
+
+message CAM_HEX_ack_frame {
+  CMD_RECV cmd_recv = 1;
+  ACK2SEND ack2send = 2;
+  int32    crc      = 3;
+}
+
+
