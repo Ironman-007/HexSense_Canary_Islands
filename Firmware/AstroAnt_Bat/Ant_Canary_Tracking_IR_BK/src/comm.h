@@ -12,7 +12,18 @@
 
 extern volatile bool bleConnected;
 
-extern uint8_t cmd_buffer[100];
+extern uint8_t cmd_buffer[150];
+extern uint8_t ping_buffer[150];
+
+extern uint32_t seq_num_i;
+
+class ANT_CANARY_RECV_CMD {
+  public:
+    ANT_CANARY_RECV_CMD(_CMD_RECV cmd, int32_t parameter) : recv_cmd(cmd), parameter(parameter) {}
+
+    _CMD_RECV recv_cmd;
+    int32_t   parameter;
+};
 
 // BLE Service
 extern BLEDfu  bledfu;  // OTA DFU service
@@ -34,8 +45,15 @@ extern void disconnect_callback(uint16_t conn_handle, uint8_t reason);
 
 extern void ble_setup(void);
 
-extern _CMD_RECV decodecmd(const uint8_t* data, size_t size);
+extern int decodecmd(const uint8_t* data, size_t size);
 
-extern _CMD_RECV get_recv_cmd(size_t size);
+extern int get_recv_cmd(size_t size);
 
-extern void handle_cmd(_CMD_RECV cmd_recv);
+extern void handle_cmd(ANT_CANARY_RECV_CMD * cmd_recv);
+
+extern void send_ack(_CMD_RECV cmd_recv, _ACK2SEND ack2send);
+
+extern ANT_CANARY_RECV_CMD ant_canary_recv_cmd;
+
+extern void ping_ack(void);
+extern void IR_ack(void);

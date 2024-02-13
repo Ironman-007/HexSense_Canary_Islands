@@ -18,7 +18,12 @@ extern volatile uint16_t encoder2Counter;
 
 extern void motor_setup(void);
 
-extern void move_forward(int speed);
-extern void move_backward(int speed);
+extern void forward(int speed);
+extern void backward(int speed);
+extern void stop(void);
+
+extern void left(int speed);
+extern void right(int speed);
+extern void stop(void);
+
 extern void motor_tst(int speed);
-extern void motor_stop(void);

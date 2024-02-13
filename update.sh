@@ -1,5 +1,5 @@
 git pull
 git status
 git add --all
-git commit -a -m "Updated ant proto file"
+git commit -a -m "use repeated field for the Ant"
 git push
