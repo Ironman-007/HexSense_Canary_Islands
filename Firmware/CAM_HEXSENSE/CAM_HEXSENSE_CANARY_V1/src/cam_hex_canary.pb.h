@@ -12,7 +12,8 @@
 /* Enum definitions */
 typedef enum _CMD_RECV {
     CMD_RECV_START = 0,
-    CMD_RECV_AGAIN = 1
+    CMD_RECV_AGAIN = 1,
+    CMD_RECV_INVALID = 3
 } CMD_RECV;
 
 typedef enum _ACK2SEND {
@@ -46,8 +47,8 @@ extern "C" {
 
 /* Helper constants for enums */
 #define _CMD_RECV_MIN CMD_RECV_START
-#define _CMD_RECV_MAX CMD_RECV_AGAIN
-#define _CMD_RECV_ARRAYSIZE ((CMD_RECV)(CMD_RECV_AGAIN+1))
+#define _CMD_RECV_MAX CMD_RECV_INVALID
+#define _CMD_RECV_ARRAYSIZE ((CMD_RECV)(CMD_RECV_INVALID+1))
 
 #define _ACK2SEND_MIN ACK2SEND_ACK
 #define _ACK2SEND_MAX ACK2SEND_NCK

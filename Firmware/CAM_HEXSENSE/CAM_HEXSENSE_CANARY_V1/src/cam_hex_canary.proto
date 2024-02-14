@@ -9,8 +9,9 @@ message CAM_HEX_camera_data_frame {
 }
 
 enum CMD_RECV {
-  START = 0;
-  AGAIN = 1;
+  START   = 0;
+  AGAIN   = 1;
+  INVALID = 3;
 }
 
 message CAM_HEX_cmd_frame {
