@@ -1,6 +1,8 @@
 #include "FZ_ArduCAM_Mega.h"
 #include "HEX_system.h"
 #include "HEX_camera.h"
+#include "HEX_FRAM.h"
+#include "HEX_comm.h"
 
 FZ_ArduCAM_Mega::FZ_ArduCAM_Mega(int pin_cs) {
   _cs = pin_cs;
@@ -208,20 +210,34 @@ void FZ_ArduCAM_Mega::reset_camera(void) {
   output_debug_info("Camera _deviceAddress set done.");
 }
 
-void FZ_ArduCAM_Mega::waitI2cIdle(void) {
-  while ((read_register(CAM_REG_SENSOR_STATE) & 0X03) != CAM_REG_SENSOR_STATE_IDLE) {
+void FZ_ArduCAM_Mega::waitI2cIdle(void)
+{
+  while ((read_register(CAM_REG_SENSOR_STATE) & 0X03) != CAM_REG_SENSOR_STATE_IDLE)
+  {
     delayMicroseconds(10);
   }
 }
 
-void FZ_ArduCAM_Mega::getpicture(void) {
-  while (getTotalLength()){
+void FZ_ArduCAM_Mega::getpicture(void)
+{
+  FRAM_w_P = 0;
+
+  while (getTotalLength())
+  {
     read_buffer(NULL, BUFFER_SIZE);
+
+    size_t cobs_len = COBSencode(image_buffer, BUFFER_SIZE, COBS_encoded_image_buffer);
+    fram_write(FRAM_w_P, COBS_encoded_image_buffer, cobs_len);
+    FRAM_w_P += cobs_len;
+
+    output_debug_info_int32("FRAM_w_P: ", FRAM_w_P);
+
     delay(100);
   }
 }
 
-void FZ_ArduCAM_Mega::setFifoBurst(void) {
+void FZ_ArduCAM_Mega::setFifoBurst(void)
+{
   SPI.transfer(BURST_FIFO_READ);
 }
 
@@ -274,9 +290,6 @@ uint32_t FZ_ArduCAM_Mega::read_buffer(uint8_t *buff, uint32_t len)
       image_buffer[count] = 0x00;
     }
   }
-
-  // TODO: COBS encode the image_buffer
-  // TODO: store the cobs encoded image_buffer to the FRAM
 
   this->_buffer_size -= len;
 

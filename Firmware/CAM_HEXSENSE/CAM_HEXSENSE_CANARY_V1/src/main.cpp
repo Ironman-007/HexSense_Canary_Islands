@@ -3,25 +3,31 @@
 #include "HEX_system.h"
 #include "HEX_camera.h"
 #include "HEX_comm.h"
+#include "HEX_FRAM.h"
 
-void setup() {
+void setup()
+{
   serialport_setup();
-  camera_setup();
-  lora_setup();
-  // capture_photo();
-  // get_photo();
+  // lora_setup();
+  fram_setup();
+  camera_init();
+
+  // Doing test
+  camera_power_on(CAM_6);
+  camera_setup(CAM_6);
+
+  tst_function();
 }
 
-void loop() {
-  // TODO: check receiving command
-  if (LoRa.available()) {
-    int recv_len = LoRa.available();
+void loop()
+{
+  // if (LoRa.available())
+  // {
+  //   int recv_len = LoRa.available();
 
-      output_debug_info_int("Received length: ", recv_len);
+  //   output_debug_info_int("Received length: ", recv_len);
 
-      get_recv_cmd(recv_len);
-      handle_cmd(&cam_hex_canary_recv_cmd);
-  }
-
-  // delay(1000);
+  //   get_recv_cmd(recv_len);
+  //   handle_cmd(&cam_hex_canary_recv_cmd);
+  // }
 }

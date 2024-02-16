@@ -18,7 +18,8 @@ typedef enum _CMD_RECV {
 
 typedef enum _ACK2SEND {
     ACK2SEND_ACK = 0,
-    ACK2SEND_NCK = 1
+    ACK2SEND_NCK = 1,
+    ACK2SEND_DONE = 2
 } ACK2SEND;
 
 /* Struct definitions */
@@ -51,8 +52,8 @@ extern "C" {
 #define _CMD_RECV_ARRAYSIZE ((CMD_RECV)(CMD_RECV_INVALID+1))
 
 #define _ACK2SEND_MIN ACK2SEND_ACK
-#define _ACK2SEND_MAX ACK2SEND_NCK
-#define _ACK2SEND_ARRAYSIZE ((ACK2SEND)(ACK2SEND_NCK+1))
+#define _ACK2SEND_MAX ACK2SEND_DONE
+#define _ACK2SEND_ARRAYSIZE ((ACK2SEND)(ACK2SEND_DONE+1))
 
 
 #define CAM_HEX_cmd_frame_cmd_recv_ENUMTYPE CMD_RECV

@@ -1,30 +1,45 @@
 #include <Arduino.h>
 
-#include "Adafruit_FRAM_I2C.h"
-
+#include "HEX_FRAM.h"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif // __cplusplus
 
-// FRAM write and read pointers
-extern uint16_t FRAM_r_P;
-extern uint16_t FRAM_w_P;
+volatile uint16_t FRAM_w_P = 0;
+volatile uint16_t FRAM_r_P = 0;
 
+Adafruit_FRAM_SPI fram = Adafruit_FRAM_SPI(FRAM_CS);
+
+void fram_setup(void) {
 // ===================== FRAM =====================
-extern Adafruit_FRAM_I2C fram;
+  if (fram.begin()) {
+    Serial.println("Found SPI FRAM");
+  } else {
+    Serial.println("SPI FRAM not identified ... check your connections?");
+  }
+}
 
-extern void fram_setup(void);
-extern void reset_fram_pointer(void);
+void fram_write(uint16_t addr, uint8_t * data, uint16_t size) {
+  fram.write(addr, data, size);
+}
 
-extern void write_ant_packet_to_fram(uint16_t w_pointer);
+void fram_read(uint16_t addr, uint8_t * data, uint16_t size) {
+  fram.read(addr, data, size);
+}
 
-extern void calc_FRAM_w_P();
-extern void calc_FRAM_r_P();
+void fram_write_byte(uint16_t addr, uint8_t * data)
+{
+  fram_write(addr, data, 1);
+}
 
-extern void read_an_ant_packet(uint16_t FRAM_w_P);
+void fram_read_byte(uint16_t addr, uint8_t * data)
+{
+  fram_read(addr, data, 1);
+}
 
 #ifdef __cplusplus
 }
 #endif
+

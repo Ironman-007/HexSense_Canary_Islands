@@ -21,8 +21,6 @@ void system_init(void) {
   BR_GPIO_init();
   BR_TURN_OFF_ALL();
 
-  // flash_led(50, 3);
-
   calculate_orientation();
 
   if (SERIAL_DEBUG) {
@@ -65,3 +63,5 @@ void loop() {
     set_idle_level(LOW_POWER_LEVEL);
   }
 }
+
+

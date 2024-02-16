@@ -20,8 +20,9 @@ message CAM_HEX_cmd_frame {
 }
 
 enum ACK2SEND {
-  ACK = 0;
-  NCK = 1;
+  ACK  = 0;
+  NCK  = 1;
+  DONE = 2;
 }
 
 message CAM_HEX_ack_frame {
