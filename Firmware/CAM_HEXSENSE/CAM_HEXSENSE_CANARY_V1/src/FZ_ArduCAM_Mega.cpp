@@ -241,8 +241,8 @@ void FZ_ArduCAM_Mega::getpicture(void)
   }
 
   FRAM_IMAGE_ADDR_TOP = FRAM_w_P;
-  output_debug_info("");
-  output_debug_info_int32("FRAM_IMAGE_ADDR_TOP: ", FRAM_IMAGE_ADDR_TOP);
+  // output_debug_info("");
+  // output_debug_info_int32("FRAM_IMAGE_ADDR_TOP: ", FRAM_IMAGE_ADDR_TOP);
 }
 
 void FZ_ArduCAM_Mega::setFifoBurst(void)
@@ -338,21 +338,21 @@ uint32_t FZ_ArduCAM_Mega::read_buffer(uint8_t *buff, uint32_t len)
       byte temp_byte = SPI.transfer(0x00);
       image_buffer[count] = temp_byte;
 
-      if (temp_byte < 0x10) {
-        Serial.print("0");
-      }
-      Serial.print(temp_byte, HEX);
+      // if (temp_byte < 0x10) {
+      //   Serial.print("0");
+      // }
+      // Serial.print(temp_byte, HEX);
 
     }
     else
     {
       image_buffer[count] = 0x00;
 
-      byte temp_byte = 0x00;
-      if (temp_byte < 0x10) {
-        Serial.print("0");
-      }
-      Serial.print(temp_byte, HEX);
+      // byte temp_byte = 0x00;
+      // if (temp_byte < 0x10) {
+      //   Serial.print("0");
+      // }
+      // Serial.print(temp_byte, HEX);
 
     }
   }
