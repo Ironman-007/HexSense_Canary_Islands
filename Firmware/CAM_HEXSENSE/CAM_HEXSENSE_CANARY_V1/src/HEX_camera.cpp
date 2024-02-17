@@ -81,20 +81,10 @@ void take_picture() {
 }
 
 void capture_photo() {
-  while (hex_camera.getTotalLength() < 30000)
+  while (hex_camera.getTotalLength() < 40000)
   {
     take_picture();
-    delay(100);
-    // take_picture();
-    // delay(100);
-    // take_picture();
-    // delay(100);
-    // take_picture();
-    // delay(100);
-    // take_picture();
-    // delay(100);
-    // take_picture();
-    // delay(100);
+    delay(200);
   }
 }
 

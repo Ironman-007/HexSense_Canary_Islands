@@ -11,7 +11,7 @@ void setup()
   // lora_setup();
   fram_setup();
   camera_init();
- 
+
   take_photo_from(CAM_1);
   take_photo_from(CAM_6);
 }
