@@ -121,7 +121,7 @@ typedef enum {
 #define CAM_REG_MANUAL_GAIN_BIT_9_8 0X31
 #define CAM_REG_MANUAL_GAIN_BIT_7_0 0X32
 
-#define CAMERA_CS A5
+#define CAMERA_CS 3
 
 class FZ_ArduCAM_Mega
 {

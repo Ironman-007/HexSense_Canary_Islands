@@ -126,19 +126,20 @@ void tst_function(void) {
   uint8_t fram_byte = 0x00;
   FRAM_r_P = 0;
 
-  while (FRAM_r_P < FRAM_w_P)
+  while (FRAM_r_P < FRAM_IMAGE_ADDR_TOP)
   {
-    while (fram_byte != 0x00)
+    fram_read_byte(FRAM_r_P, &fram_byte);
+
+    if (SERIAL_DEBUG)
     {
-      fram_read_byte(FRAM_r_P, &fram_byte);
-      img2send_cobs_encode_buffer[FRAM_r_P] = fram_byte;
-      FRAM_r_P++;
+      if (fram_byte < 0x10)
+      {
+        Serial.print("0");
+      }
+      Serial.print(fram_byte, HEX);
     }
 
-    // COBS decode the image
-    size_t img_decode_buffer_size = COBSdecode(img2send_cobs_encode_buffer, FRAM_r_P, camera_data.bytes);
-
-    output_debug_info_int("img_decode_buffer_size: ", img_decode_buffer_size);
+    FRAM_r_P++;
   }
 }
 

@@ -17,10 +17,18 @@ void setup()
   camera_setup(CAM_6);
 
   tst_function();
+  output_debug_info("");
 }
 
 void loop()
 {
+  output_debug_info("Looping...");
+
+  while (1)
+  {
+    ;
+  }
+  
   // if (LoRa.available())
   // {
   //   int recv_len = LoRa.available();

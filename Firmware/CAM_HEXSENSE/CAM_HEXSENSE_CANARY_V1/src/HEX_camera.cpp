@@ -41,6 +41,7 @@ void camera_init() {
 void camera_power_on(int camera_num) {
   // Power on a camera module
   CAM_CTRL_GPIO.digitalWrite(HEX_CAMERA_CTRL_PIN_ARRAY[camera_num].cam_en, HIGH);
+  delay(100); // FZ: must add a delay to make sure the power is ready.
   // Wire.begin();
   // CAM_CTRL_GPIO.begin(Wire, _TCA9534_ADDR);
 
@@ -48,6 +49,7 @@ void camera_power_on(int camera_num) {
 }
 
 void camera_setup(int camera_num) {
+  output_debug_info("Camera setup");
   hex_camera.set_CS_pin(HEX_CAMERA_CTRL_PIN_ARRAY[camera_num].cam_cs);
 
   hex_camera.begin();

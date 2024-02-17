@@ -7,8 +7,9 @@ extern "C"
 {
 #endif // __cplusplus
 
-volatile uint16_t FRAM_w_P = 0;
-volatile uint16_t FRAM_r_P = 0;
+volatile uint16_t FRAM_w_P            = 0;
+volatile uint16_t FRAM_r_P            = 0;
+volatile uint16_t FRAM_IMAGE_ADDR_TOP = 0;
 
 Adafruit_FRAM_SPI fram = Adafruit_FRAM_SPI(FRAM_CS);
 
@@ -21,8 +22,10 @@ void fram_setup(void) {
   }
 }
 
-void fram_write(uint16_t addr, uint8_t * data, uint16_t size) {
-  fram.write(addr, data, size);
+bool fram_write(uint16_t addr, uint8_t * data, uint16_t size) {
+  fram.writeEnable(true);
+
+  return fram.write(addr, data, size);
 }
 
 void fram_read(uint16_t addr, uint8_t * data, uint16_t size) {

@@ -22,6 +22,9 @@ void FZ_ArduCAM_Mega::begin(void) {
 
 void FZ_ArduCAM_Mega::set_CS_pin(int pin_cs) {
   this -> _cs = pin_cs;
+
+  pinMode(_cs, OUTPUT);
+  digitalWrite(_cs, HIGH);
 }
 
 void FZ_ArduCAM_Mega::write_register(uint8_t addr, uint8_t data) {
@@ -61,13 +64,10 @@ void FZ_ArduCAM_Mega::set_resolution(uint8_t resolution) {
 void FZ_ArduCAM_Mega::set_brightness(CAM_BRIGHTNESS_LEVEL brightness) {
   write_register(CAM_REG_BRIGHTNESS_CONTROL, brightness);
   waitI2cIdle();
-  output_debug_info("Setting brightness done.");
 }
 
 void FZ_ArduCAM_Mega::setAutoExposure(uint8_t val)
 {
-  output_debug_info_int("Setting auto exposure...", val);
-
   unsigned char symbol = 0;
   if (val == 1) {
       symbol |= 0x80;
@@ -199,6 +199,8 @@ uint32_t FZ_ArduCAM_Mega::getTotalLength(void) {
 }
 
 void FZ_ArduCAM_Mega::reset_camera(void) {
+  output_debug_info("Camera reset.");
+
   write_register(CAM_REG_SENSOR_RESET, CAM_SENSOR_RESET_ENABLE);
   waitI2cIdle();
 
@@ -226,14 +228,38 @@ void FZ_ArduCAM_Mega::getpicture(void)
   {
     read_buffer(NULL, BUFFER_SIZE);
 
-    size_t cobs_len = COBSencode(image_buffer, BUFFER_SIZE, COBS_encoded_image_buffer);
-    fram_write(FRAM_w_P, COBS_encoded_image_buffer, cobs_len);
-    FRAM_w_P += cobs_len;
+    // print all data in HEX in the image_buffer
+    if (SERIAL_DEBUG)
+    {
+      for (int iii = 0; iii < BUFFER_SIZE; iii++)
+      {
+        if (image_buffer[iii] < 0x10)
+        {
+          Serial.print("0");
+        }
+        Serial.print(image_buffer[iii], HEX);
+      }
+    }
 
-    output_debug_info_int32("FRAM_w_P: ", FRAM_w_P);
+    fram_write(FRAM_w_P, image_buffer, BUFFER_SIZE);
 
-    delay(100);
+    output_debug_info("FRAM write done.");
+    uint8_t temp_read_byte = 0;
+    fram_read_byte(FRAM_w_P, &temp_read_byte);
+
+    if (temp_read_byte < 0x10)
+    {
+      Serial.print("0");
+    }
+    Serial.println(temp_read_byte, HEX);
+
+    FRAM_w_P += BUFFER_SIZE;
+
+    delay(20);
   }
+
+  FRAM_IMAGE_ADDR_TOP = FRAM_w_P;
+  output_debug_info_int32("FRAM_IMAGE_ADDR_TOP: ", FRAM_IMAGE_ADDR_TOP);
 }
 
 void FZ_ArduCAM_Mega::setFifoBurst(void)
@@ -241,6 +267,7 @@ void FZ_ArduCAM_Mega::setFifoBurst(void)
   SPI.transfer(BURST_FIFO_READ);
 }
 
+/*
 uint32_t FZ_ArduCAM_Mega::read_buffer(uint8_t *buff, uint32_t len)
 {
   uint32_t length = len;
@@ -290,6 +317,64 @@ uint32_t FZ_ArduCAM_Mega::read_buffer(uint8_t *buff, uint32_t len)
       image_buffer[count] = 0x00;
     }
   }
+
+  this->_buffer_size -= len;
+
+  return len;
+}
+*/
+
+uint32_t FZ_ArduCAM_Mega::read_buffer(uint8_t *buff, uint32_t len)
+{
+  uint32_t length = len;
+  uint32_t count = 0;
+
+  if (getTotalLength() == 0 || (len == 0))
+  {
+    return 0;
+  }
+
+  if (getTotalLength() < len)
+  {
+    len = getTotalLength();
+  }
+
+  digitalWrite(_cs, LOW);
+  setFifoBurst();
+
+  if (this->burstFirstFlag == 0)
+  {
+    this->burstFirstFlag = 1;
+    SPI.transfer(0x00);
+  }
+
+  for (count = 0; count < length; count++)
+  {
+    if (count < len)
+    {
+      byte temp_byte = SPI.transfer(0x00);
+      image_buffer[count] = temp_byte;
+
+      // if (temp_byte < 0x10) {
+      //   Serial.print("0");
+      // }
+      // Serial.print(temp_byte, HEX);
+
+    }
+    else
+    {
+      image_buffer[count] = 0x00;
+
+      // byte temp_byte = 0x00;
+      // if (temp_byte < 0x10) {
+      //   Serial.print("0");
+      // }
+      // Serial.print(temp_byte, HEX);
+
+    }
+  }
+
+  digitalWrite(_cs, HIGH);
 
   this->_buffer_size -= len;
 

@@ -35,7 +35,6 @@ void setup() {
   take_picture();
   take_picture();
   take_picture();
-  take_picture();
 
   mycamera.getpicture();
 
