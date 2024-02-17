@@ -15,11 +15,7 @@ Adafruit_FRAM_SPI fram = Adafruit_FRAM_SPI(FRAM_CS);
 
 void fram_setup(void) {
 // ===================== FRAM =====================
-  if (fram.begin()) {
-    Serial.println("Found SPI FRAM");
-  } else {
-    Serial.println("SPI FRAM not identified ... check your connections?");
-  }
+  fram.begin();
 }
 
 bool fram_write(uint16_t addr, uint8_t * data, uint16_t size) {

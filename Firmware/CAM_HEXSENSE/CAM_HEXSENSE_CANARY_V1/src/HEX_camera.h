@@ -3,6 +3,7 @@
 
 #include "FZ_ArduCAM_Mega.h"
 #include "SparkFun_TCA9534.h"
+#include "HEX_comm.h"
 
 extern FZ_ArduCAM_Mega mycamera;
 
@@ -52,7 +53,10 @@ extern HEX_CAMERA_CTRL_PIN HEX_CAMERA_CTRL_PIN_ARRAY[CAMERA_CNT];
 
 extern void camera_init(void);
 extern void camera_power_on(int camera_num);
+extern void camera_power_off(int camera_num);
 extern void camera_setup(int camera_num);
 extern void take_picture(void);
 extern void capture_photo(void);
 extern void get_photo(void);
+
+extern void take_photo_from(int camera_num);

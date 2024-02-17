@@ -9,6 +9,9 @@ FZ_ArduCAM_Mega::FZ_ArduCAM_Mega(int pin_cs) {
 
   pinMode(_cs, OUTPUT);
   digitalWrite(_cs, HIGH);
+
+  this->_total_length = 0;
+  this->_buffer_size = 0;
 }
 
 FZ_ArduCAM_Mega::~FZ_ArduCAM_Mega() {
@@ -222,36 +225,15 @@ void FZ_ArduCAM_Mega::waitI2cIdle(void)
 
 void FZ_ArduCAM_Mega::getpicture(void)
 {
+  this -> burstFirstFlag = 0;
+
   FRAM_w_P = 0;
 
   while (getTotalLength())
   {
     read_buffer(NULL, BUFFER_SIZE);
 
-    // print all data in HEX in the image_buffer
-    if (SERIAL_DEBUG)
-    {
-      for (int iii = 0; iii < BUFFER_SIZE; iii++)
-      {
-        if (image_buffer[iii] < 0x10)
-        {
-          Serial.print("0");
-        }
-        Serial.print(image_buffer[iii], HEX);
-      }
-    }
-
     fram_write(FRAM_w_P, image_buffer, BUFFER_SIZE);
-
-    output_debug_info("FRAM write done.");
-    uint8_t temp_read_byte = 0;
-    fram_read_byte(FRAM_w_P, &temp_read_byte);
-
-    if (temp_read_byte < 0x10)
-    {
-      Serial.print("0");
-    }
-    Serial.println(temp_read_byte, HEX);
 
     FRAM_w_P += BUFFER_SIZE;
 
@@ -259,6 +241,7 @@ void FZ_ArduCAM_Mega::getpicture(void)
   }
 
   FRAM_IMAGE_ADDR_TOP = FRAM_w_P;
+  output_debug_info("");
   output_debug_info_int32("FRAM_IMAGE_ADDR_TOP: ", FRAM_IMAGE_ADDR_TOP);
 }
 
@@ -355,21 +338,21 @@ uint32_t FZ_ArduCAM_Mega::read_buffer(uint8_t *buff, uint32_t len)
       byte temp_byte = SPI.transfer(0x00);
       image_buffer[count] = temp_byte;
 
-      // if (temp_byte < 0x10) {
-      //   Serial.print("0");
-      // }
-      // Serial.print(temp_byte, HEX);
+      if (temp_byte < 0x10) {
+        Serial.print("0");
+      }
+      Serial.print(temp_byte, HEX);
 
     }
     else
     {
       image_buffer[count] = 0x00;
 
-      // byte temp_byte = 0x00;
-      // if (temp_byte < 0x10) {
-      //   Serial.print("0");
-      // }
-      // Serial.print(temp_byte, HEX);
+      byte temp_byte = 0x00;
+      if (temp_byte < 0x10) {
+        Serial.print("0");
+      }
+      Serial.print(temp_byte, HEX);
 
     }
   }

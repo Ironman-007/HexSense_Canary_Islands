@@ -11,13 +11,9 @@ void setup()
   // lora_setup();
   fram_setup();
   camera_init();
-
-  // Doing test
-  camera_power_on(CAM_6);
-  camera_setup(CAM_6);
-
-  tst_function();
-  output_debug_info("");
+ 
+  take_photo_from(CAM_1);
+  take_photo_from(CAM_6);
 }
 
 void loop()

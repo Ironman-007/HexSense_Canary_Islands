@@ -141,6 +141,11 @@ void tst_function(void) {
 
     FRAM_r_P++;
   }
+
+  if (SERIAL_DEBUG)
+  {
+    Serial.println("");
+  }
 }
 
 void handle_cmd(CAM_HEX_CANARY_RECV_CMD * cmd_recv)
