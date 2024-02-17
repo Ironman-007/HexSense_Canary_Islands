@@ -7,6 +7,8 @@
 
 extern FZ_ArduCAM_Mega mycamera;
 
+#define CAM_QUALITY_CONTROL 25000
+
 #define CAM_DCDC_EN           A3
 
 #define HEX_CAMERA_RESOLUTION CAM_IMAGE_MODE_SXGAM

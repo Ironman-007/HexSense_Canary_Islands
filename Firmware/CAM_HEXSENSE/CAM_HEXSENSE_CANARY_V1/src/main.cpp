@@ -13,6 +13,10 @@ void setup()
   camera_init();
 
   take_photo_from(CAM_1);
+  take_photo_from(CAM_2);
+  take_photo_from(CAM_3);
+  take_photo_from(CAM_4);
+  take_photo_from(CAM_5);
   take_photo_from(CAM_6);
 }
 

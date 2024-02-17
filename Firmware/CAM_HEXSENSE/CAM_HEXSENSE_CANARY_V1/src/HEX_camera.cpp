@@ -74,6 +74,7 @@ void take_picture() {
   hex_camera.setAutoExposure(1);
   hex_camera.SetAutoISOSensitive(1);
   hex_camera.set_brightness(CAM_BRIGHTNESS_LEVEL_1);
+  // hex_camera.SetAutoWhiteBalanceMode(1);
   hex_camera.SetWhiteBalanceMode(CAM_WHITE_BALANCE_MODE_OFFICE);
   hex_camera.SetCapture();
 
@@ -81,11 +82,21 @@ void take_picture() {
 }
 
 void capture_photo() {
-  while (hex_camera.getTotalLength() < 40000)
-  {
-    take_picture();
-    delay(200);
-  }
+  take_picture();
+  delay(500);
+  take_picture();
+  delay(500);
+  take_picture();
+  delay(500);
+  take_picture();
+  delay(500);
+  take_picture();
+  delay(100);
+  // while (hex_camera.getTotalLength() < CAM_QUALITY_CONTROL)
+  // {
+  //   take_picture();
+  //   delay(200);
+  // }
 }
 
 void get_photo() {
