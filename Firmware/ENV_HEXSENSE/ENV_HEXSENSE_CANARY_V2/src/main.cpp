@@ -6,7 +6,7 @@
 #include "HEX_sensor_scd30.h"
 #include "HEX_comm.h"
 
-#define WAIT_TIME 30000
+#define WAIT_TIME 3000
 
 void system_init(void) {
   if (SERIAL_DEBUG) serial_setup();
@@ -27,14 +27,11 @@ void system_init(void) {
     Serial.print("Orientation: ");
     Serial.println(body_orientation);
   }
-  // led_on();
   Burn_resistor(body_orientation);
-  // led_off();
 }
 
 void setup(void) {
   if (SERIAL_DEBUG) {
-    Serial.println("====== Start ======");
     system_init();
   }
   else {
@@ -47,6 +44,9 @@ void setup(void) {
 
 void loop() {
   if (alarmMatched) {
+    if (SERIAL_DEBUG) {
+      Serial.println(" --------------------- alarmMatched ---------------------");
+    }
     alarmMatched = false;
 
     lora_idle();
@@ -57,7 +57,6 @@ void loop() {
         Serial.println("Send data");
       }
       pack_package();
-      // flash_led(10, 1);
     }
     lora_sleep();
     set_idle_level(LOW_POWER_LEVEL);

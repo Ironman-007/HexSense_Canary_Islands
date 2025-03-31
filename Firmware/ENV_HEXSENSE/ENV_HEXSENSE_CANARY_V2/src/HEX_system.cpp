@@ -9,6 +9,9 @@ void alarmMatch(void) {
 }
 
 void set_idle_level(int level) {
+  if (SERIAL_DEBUG) {
+    Serial.println("set_idle_level");
+  }
   if (level < 3) {
     SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk; // Clear SLEEPDEEP bit, we use the idle state.
 

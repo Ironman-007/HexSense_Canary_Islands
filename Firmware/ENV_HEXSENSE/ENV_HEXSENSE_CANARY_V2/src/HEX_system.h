@@ -4,13 +4,13 @@
 
 #include "RTC_FZ.h"
 
-#define SERIAL_DEBUG true
+#define SERIAL_DEBUG false
 
 #if !( defined(ARDUINO_SAMD_ZERO) || defined(__SAMD21G18A__))
   #error This code is designed to run on SAMD21/SAMD51 platform! Please check your Tools->Board setting.
 #endif
 
-#define PERIOD 10 // sleep period in seconds
+#define PERIOD 30 // sleep period in seconds
 
 #define INDICATOR_LED_PIN 9
 #define FREQ_SELECT_PIN   10

@@ -6071,7 +6071,7 @@
 		(fields_autoplaced yes)
 		(uuid "9aea5e66-6ca9-4eaf-823c-63b39fb0c335")
 		(property "Reference" "U4"
-			(at 69.85 89.052 0)
+			(at 69.85 88.4875 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6079,7 +6079,7 @@
 			)
 		)
 		(property "Value" "SN65220DBVR"
-			(at 69.85 91.1 0)
+			(at 69.85 90.9118 0)
 			(effects
 				(font
 					(size 1.27 1.27)

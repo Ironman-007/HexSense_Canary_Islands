@@ -5,6 +5,9 @@
 float bat_v = 0.0;
 
 void read_bat_v(uint8_t bat_v_pin) {
+  if (SERIAL_DEBUG) {
+    Serial.println("read_bat_v");
+  }
   float _batv = analogRead(bat_v_pin);
   bat_v = (_batv -_BAT_V_B) / _BAT_V_A;
 }

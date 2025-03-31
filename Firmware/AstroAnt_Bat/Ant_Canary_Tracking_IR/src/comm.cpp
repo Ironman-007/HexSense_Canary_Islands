@@ -182,43 +182,36 @@ void handle_cmd(ANT_CANARY_RECV_CMD * cmd_recv) {
   seq_num_i = 0;
 
   if (cmd_recv->recv_cmd == CMD_RECV_START) {
-    // TODO: start track moving
     flash_led(MSG_LED_PIN, 1, 50);
     send_ack(CMD_RECV_START, ACK2SEND_ACK);
     start_track_moving();
   }
   if (cmd_recv->recv_cmd == CMD_RECV_FORWARD) {
-    // TODO: send ack data back
     flash_led(MSG_LED_PIN, 1, 50);
     send_ack(CMD_RECV_FORWARD, ACK2SEND_ACK);
     move_forward(cmd_recv->parameter);
   }
   if (cmd_recv->recv_cmd == CMD_RECV_BACKWARD) {
-    // TODO: send ack data back
     flash_led(MSG_LED_PIN, 1, 50);
     send_ack(CMD_RECV_BACKWARD, ACK2SEND_ACK);
     move_backward(cmd_recv->parameter);
   }
   if (cmd_recv->recv_cmd == CMD_RECV_TURN_L) {
-    // TODO: start track moving
     flash_led(MSG_LED_PIN, 1, 50);
     send_ack(CMD_RECV_TURN_L, ACK2SEND_ACK);
     turn_left(cmd_recv->parameter);
   }
   if (cmd_recv->recv_cmd == CMD_RECV_TURN_R) {
-    // TODO: start track moving
     flash_led(MSG_LED_PIN, 1, 50);
     send_ack(CMD_RECV_TURN_R, ACK2SEND_ACK);
     turn_right(cmd_recv->parameter);
   }
   if (cmd_recv->recv_cmd == CMD_RECV_PING) {
-    // TODO: send ack data back
     flash_led(MSG_LED_PIN, 1, 50);
     send_ack(CMD_RECV_PING, ACK2SEND_ACK);
     ping_ack();
   }
   if (cmd_recv->recv_cmd == CMD_RECV_TAKEIR) {
-    // TODO: take IR image
     flash_led(MSG_LED_PIN, 1, 50);
     send_ack(CMD_RECV_TAKEIR, ACK2SEND_ACK);
     take_ir_image();

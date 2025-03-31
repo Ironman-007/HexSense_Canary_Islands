@@ -30,13 +30,13 @@ void lora_setup (void) {
 }
 
 void send_data_to_lora(uint8_t* buffer, size_t message_length) {
-  LoRa.beginPacket();
-  LoRa.write(buffer, message_length);
-  LoRa.endPacket();
-
   if (SERIAL_DEBUG) {
     Serial.println("Sent data to LoRa");
   }
+
+  LoRa.beginPacket();
+  LoRa.write(buffer, message_length);
+  LoRa.endPacket();
 }
 
 void pack_package(void) {
@@ -74,9 +74,15 @@ void pack_package(void) {
 }
 
 void lora_sleep(void) {
+  if (SERIAL_DEBUG) {
+    Serial.println("lora_sleep");
+  }
   LoRa.sleep();
 }
 
 void lora_idle(void) {
+  if (SERIAL_DEBUG) {
+    Serial.println("lora_idle");
+  }
   LoRa.idle();
 }

@@ -27,6 +27,9 @@ void scd30_poweroff(void) {
 }
 
 bool read_scd30(void) {
+  if (SERIAL_DEBUG) {
+    Serial.println("read_scd30");
+  }
   if (scd30.dataReady()) {
     scd30.read();
 
