@@ -11877,7 +11877,7 @@
 			)
 		)
 	)
-	(global_label "PA10"
+	(global_label "PC0"
 		(shape input)
 		(at 312.42 66.04 0)
 		(fields_autoplaced yes)
@@ -11889,7 +11889,7 @@
 		)
 		(uuid "5a637cba-feaf-4b19-a939-d566d15440a3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 320.1828 66.04 0)
+			(at 319.1547 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
